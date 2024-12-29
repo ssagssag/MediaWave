@@ -1,0 +1,3 @@
+type classNameProps = {
+  className?: string;
+}

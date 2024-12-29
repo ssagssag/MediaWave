@@ -1,17 +1,21 @@
 import Movies from "../components/Movies";
+import Recommend from "../components/recommend/Recommend";
 
 export default function Home() {
   return (
     <main className={`
-      h-screen p-10
-      flex flex-row justify-between gap-7 mt-5
-      `}>
-      <aside className="w-[300px] h-[500px] mt-12">
-        <div className="bg-white/20 w-full h-full rounded-[30px]"/>
-      </aside>
-      <section className="w-[1000px] h-full">
+      flex flex-col items-center justify-center`}>
+      <div className="flex flex-row justify-between gap-7 mt-16 px-10">
+        <aside className="w-[300px] h-[600px] mt-11">
+          <div className="bg-white/20 w-full h-full rounded-[30px]"/>
+        </aside>
+        <section className="w-[1000px] h-full">
+          <Recommend />
+        </section>
+      </div>
+      <div className="w-[1440px] p-10">
         <Movies />
-      </section>
+      </div>
     </main>
   );
 }

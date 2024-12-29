@@ -26,11 +26,11 @@ export default function Recommend() {
   }, []);
 
   return (
-    <div className="mt-12">
+    <div className="">
       <Swiper
         modules={[Autoplay]}
         autoplay={{
-          delay: 8000,
+          delay: 6000,
           disableOnInteraction: false,
         }}
         rewind={true}
