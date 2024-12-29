@@ -1,6 +1,6 @@
 import RecommendItem from "./RecommendItem";
 
-export default function RecommendCard({movie}:MovieItem) {
+export default function RecommendCard({movie}:RecommendProps) {
   return (
     <div>
       <RecommendItem movie={movie}/>

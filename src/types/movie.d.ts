@@ -14,3 +14,15 @@ interface MovieItem {
   vote_average: number;
   vote_count: number;
 }
+
+interface RecommendProps {
+  movie: MovieItem; 
+}
+
+interface PosterCardItemProps {
+  item: MovieItem; 
+}
+
+interface PosterCardProps {
+  cards: MovieItem[]; 
+}

@@ -1,13 +1,20 @@
 import DetailMovie from "./pages/DetailMovie";
 import NotFound from "./pages/NotFound";
-import { Route, Routes } from "react-router";
-import Movies from "./components/Movies";
+import { Route, Routes } from "react-router-dom";
+import Animation from "./pages/Animation";
+import Home from "./pages/Home";
+import RootLayout from "./layout/RootLayout";
 
 export default function Router() {
   return (
     <Routes>
-      <Route path="/" element={<Movies />} />
-      <Route path="detail-movie" element={<DetailMovie />} />
+      <Route element={<RootLayout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/animation" element={<Animation />} />
+        <Route path="/detail-movie" element={<DetailMovie />} />
+      </Route>
+
+      <Route path="*" element={<NotFound />}/>
     </Routes>
   );
 }
