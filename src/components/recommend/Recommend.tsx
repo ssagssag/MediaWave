@@ -16,7 +16,8 @@ export default function Recommend() {
       params: { 
         with_genres: "16",
         sort_by: "popularity.desc",
-        primary_release_year: "2023"
+        primary_release_year: "2023" ,
+  
       }});
     setTop10(results.slice(0, 5));
   };

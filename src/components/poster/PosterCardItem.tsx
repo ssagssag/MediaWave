@@ -19,7 +19,7 @@ export default function PosterCardItem({item}:PosterCardItemProps) {
   return (
     <div className="w-[230px] h-[340px] bg-white/10 rounded-3xl overflow-hidden mb-7 relative shadow-custom-heavy group">
       {/* 그라데이션 오버레이 */}
-      <div className="w-full h-[50%] bottom-0 absolute bg-gradient-to-t from-[#141414] to-transparent"/>
+      <div className="w-full h-[50%] bottom-0 absolute bg-gradient-to-t from-[#141414] to-transparent opacity-0 group-hover:opacity-100"/>
       {/* 내용 */}
       <div className={`
         absolute font-noto bottom-[5px] flex flex-col items-start justify-end p-5

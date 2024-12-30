@@ -1,23 +1,31 @@
-import Movies from "../components/Movies";
-import Recommend from "../components/recommend/Recommend";
+import { useOutletContext } from "react-router";
+import Animation from "./Animation";
+import Tv from "./Tv";
+import Movie from "./Movie";
 
 export default function Home() {
+  const {activeTab} = useOutletContext<{activeTab:number}>();
+
+
+  const renderActiveTab = () => {
+      switch (activeTab){
+        case 0:
+          return <Movie />;
+        case 1:
+          return <Tv />;
+        case 2:
+          return <Animation />;
+        default:
+          return <Movie />;
+      }
+    };
+
+
   return (
     <main className={`
       flex flex-col items-center justify-center`}>
-      {/* 베너 & 사이드바 */}
-      <div className="w-[1440px] flex flex-row justify-between gap-7 mt-16 px-10">
-        <aside className="w-[300px] h-[600px] mt-11">
-          <div className="bg-white/20 w-full h-full rounded-[30px]"/>
-        </aside>
-        <section className="w-[1100px] h-full">
-          <Recommend />
-        </section>
-      </div>
-
-      <div className="w-[1440px] p-10 mb-10">
-        <Movies />
-      </div>
+      {/* 탭 콘텐츠 */}
+      <div className="w-[1440px] p-10 mb-10">{renderActiveTab()}</div>
     </main>
   );
 }

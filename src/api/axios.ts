@@ -35,3 +35,17 @@ export const getGenreMap = async () => {
     throw error;
   }
 };
+
+// 영화 - 디테일 정보
+export const getMovieDetails = async (id:number): Promise<MovieItem> => {
+  try{
+    const response = await axiosInstance.get(`/movie/${id}`, {
+      params: { language: "en-US" }, 
+    });
+    const details = response.data;
+    return details;
+  } catch (error){
+    console.error("Error API details:", error);
+    throw error;
+  }
+}

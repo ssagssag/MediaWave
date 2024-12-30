@@ -26,3 +26,11 @@ interface PosterCardItemProps {
 interface PosterCardProps {
   cards: MovieItem[]; 
 }
+
+interface AnimationProps {
+  animations: MovieItem[];
+}
+
+interface Top5CardProps {
+  animation: MovieItem;
+}

@@ -1,3 +1,0 @@
-type classNameProps = {
-  className?: string;
-}
