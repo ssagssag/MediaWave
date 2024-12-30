@@ -34,3 +34,7 @@ interface AnimationProps {
 interface Top5CardProps {
   animation: MovieItem;
 }
+
+interface MovieProps {
+  data: MovieItem[];
+}

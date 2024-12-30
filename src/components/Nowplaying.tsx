@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
-import { axiosInstance } from "../api/axios";
 
 import PosterCard from "./poster/PosterCard";
+import { getMovieUpcoming } from "../api/axios";
 
 
 export default function Nowplaying() {
   const [nowPlaying, setNowPlaying] = useState<MovieItem[]>([]);
 
-  const getMovieNowPlaying = async () => {
-    const {data: {results}} = await axiosInstance.get("/movie/now_playing");
-
-    setNowPlaying(results);
-  };
-
   useEffect(() => {
-    getMovieNowPlaying();
+    const fetchNowPlaying = async () => {
+      try{
+        const nowPlayingData = await getMovieUpcoming();
+        setNowPlaying(nowPlayingData);
+      }catch(error){
+        console.error("Error fetching now Playing:", error);
+      }
+    };
+    fetchNowPlaying();
   },[]);
 
   return (

@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react";
-import { axiosInstance } from "../api/axios";
 import PosterCard from "./poster/PosterCard";
+import { getMoviePopular } from "../api/axios";
 
 export default function Popular() {
   const [popular, setPopular] = useState<MovieItem[]>([]);
 
-  const getMoviePopular = async () => {
-    const {data: {results}} = await axiosInstance.get("/movie/popular");
-    const sortedPopularity = results.sort((a:MovieItem, b:MovieItem) => b.popularity - a.popularity);
+  useEffect(() => {
+    const fetchPopular = async () => {
+      try {
+        const popularData = await getMoviePopular(); 
+        setPopular(popularData); 
+      } catch (error) {
+        console.error("Error fetching popular movies:", error);
+      }
+    };
 
-    setPopular(sortedPopularity);
-  };
-
-  useEffect(()=>{
-    getMoviePopular();
-  },[])
-  
+    fetchPopular();
+  }, []); 
 
   return (
     <div className=" bg-slate-300/10 p-16 rounded-3xl mt-10 border-2 border-white/50 backdrop-blur-md">

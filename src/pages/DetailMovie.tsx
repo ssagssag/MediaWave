@@ -45,7 +45,7 @@ export default function DetailMovie() {
       <div className="absolute z-20 w-full h-full grid grid-cols-1 md:grid-cols-2 items-center text-white px-64 py-8" >
         <div className="flex justify-center">
           <img
-            className={`rounded-3xl max-w-sm`}
+            className={`rounded-3xl max-w-sm `}
             src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`}
             alt={movieDetails.title}
             />
@@ -54,14 +54,13 @@ export default function DetailMovie() {
         {/* details info */}
         <div>
           <h1 className={`
-            text-white font-title
-            text-[100px] sm:text-[40px] md:text-[55px] lg:text-[70px] xl:text-[70px]
-            min-[100px]:text-[40px] mb-40
-            leading-none`}
-            >
+            text-white font-title mb-40 leading-tight text-clamp
+            `}>
               {movieDetails.title}</h1>
+          <p>{movieDetails.video}</p>
 
           <p className={`
+            font-pretendard
             text-[20px] sm:text-[9px] md:text-[10px] lg:text-[15px] xl:text-[20px]
             mb-5
           `}
@@ -69,14 +68,14 @@ export default function DetailMovie() {
             {movieDetails.release_date}  | ⭐ {Math.round(movieDetails.vote_average)} / 10</p>
           
           <p className={`
-            text-white font-noto
-            w-[450px] max-h-[9em] overflow-y-auto
+            text-white font-pretendard
+            w-[450px] max-h-[9em] overflow-y-auto scrollbar-hide
             `}
             >
               {movieDetails.overview}</p>
           
               <div className="bg-slate-100/10 rounded-3xl pr-2 w-28 h-6 mt-8 flex items-center justify-center ">
-                <p className="text-white font-noto text-xs">↗ {movieDetails.popularity}</p>
+                <p className="text-white font-pretendard text-xs">↗ {movieDetails.popularity}</p>
               </div>
         </div>
       </div>
