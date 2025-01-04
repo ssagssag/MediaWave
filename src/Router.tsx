@@ -1,5 +1,5 @@
 import NotFound from "./pages/NotFound";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import RootLayout from "./layout/RootLayout";
 import Login from "./pages/login/Login";
@@ -15,11 +15,13 @@ export default function Router() {
   return (
     <Routes>
       <Route element={<RootLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/search" element={<Search />} />
+        {/* 첫 렌더링시 url을 /movie로 설정 */}
+        <Route path="/" element={<Navigate to="/movie" replace />} />
         <Route path="/movie" element={<Movie />} />
         <Route path="/tv" element={<Tv />} />
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/animation" element={<Animation />} />
         <Route path="/genre" element={<Genre />} />
         <Route path="/details/tv/:id" element={<DetailTv />} />
