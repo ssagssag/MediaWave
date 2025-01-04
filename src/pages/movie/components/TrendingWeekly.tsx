@@ -1,24 +1,18 @@
 import "swiper/swiper-bundle.css";
 
-import { axiosInstance } from "../../api/axios";
+import { axiosInstance } from "../../../api/axios";
 import { useEffect, useState } from "react";
-import RecommendCard from "./RecommendCard";
-import BaseSwiper from "../swiper/BaseSwiper";
+import BaseSwiper from "../../../components/swiper/BaseSwiper";
+import TrendingWeeklyItem from "./TrendingWeeklyItem";
 
-export default function Recommend() {
+export default function TrendingWeekly() {
   const [top10, setTop10] = useState<MovieItem[]>([]);
 
   const getTop10 = async () => {
     const {
       data: { results },
-    } = await axiosInstance.get("/discover/movie", {
-      params: {
-        with_genres: "16",
-        sort_by: "popularity.desc",
-        primary_release_year: "2023",
-      },
-    });
-    setTop10(results.slice(0, 5));
+    } = await axiosInstance.get("/trending/movie/week");
+    setTop10(results.slice(0, 10));
   };
 
   useEffect(() => {
@@ -29,12 +23,13 @@ export default function Recommend() {
     <>
       <BaseSwiper
         data={top10}
-        renderItem={(movie) => <RecommendCard movie={movie} />}
+        renderItem={(movie) => <TrendingWeeklyItem movie={movie} />}
         autoplay={true}
         delay={3000}
         loop={true}
         unique="weeklytrend"
         slidesPerView={1}
+        slidesPerGroup={1}
         speed={500}
       />
     </>

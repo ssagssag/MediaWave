@@ -25,6 +25,7 @@ interface PosterCardItemProps {
 
 interface PosterCardProps {
   cards: MovieItem[];
+  unique: string;
 }
 
 interface AnimationProps {

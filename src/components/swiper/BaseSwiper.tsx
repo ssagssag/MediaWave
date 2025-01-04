@@ -26,7 +26,7 @@ export default function BaseSwiper<T>({
   unique,
 }: SwiperComponentProps<T>) {
   return (
-    <div className="swiper-container">
+    <div className="swiper-container ">
       <Swiper
         modules={[Autoplay, Navigation, Pagination]}
         autoplay={autoplay ? { delay, disableOnInteraction: false } : undefined}
@@ -37,7 +37,7 @@ export default function BaseSwiper<T>({
           prevEl: `.prev-${unique}`,
           nextEl: `.next-${unique}`,
         }}
-        pagination={{ clickable: true }}
+        // pagination={{ clickable: true }}
         speed={speed ? speed : undefined} // 슬라이더 넘어가는 속도
       >
         {data.map((item, index) => (
