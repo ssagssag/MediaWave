@@ -16,15 +16,15 @@ interface MovieItem {
 }
 
 interface RecommendProps {
-  movie: MovieItem; 
+  movie: MovieItem;
 }
 
 interface PosterCardItemProps {
-  item: MovieItem; 
+  item: MovieItem;
 }
 
 interface PosterCardProps {
-  cards: MovieItem[]; 
+  cards: MovieItem[];
 }
 
 interface AnimationProps {
@@ -37,4 +37,10 @@ interface Top5CardProps {
 
 interface MovieProps {
   data: MovieItem[];
+}
+
+interface SwiperDataItem {
+  id: number;
+  poster_path?: string;
+  profile_path?: string;
 }

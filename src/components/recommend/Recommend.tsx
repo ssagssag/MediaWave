@@ -1,10 +1,9 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
-import 'swiper/swiper-bundle.css'; 
+import "swiper/swiper-bundle.css";
 
 import { axiosInstance } from "../../api/axios";
 import { useEffect, useState } from "react";
 import RecommendCard from "./RecommendCard";
+import BaseSwiper from "../swiper/BaseSwiper";
 
 export default function Recommend() {
   const [top10, setTop10] = useState<MovieItem[]>([]);
@@ -13,12 +12,12 @@ export default function Recommend() {
     const {
       data: { results },
     } = await axiosInstance.get("/discover/movie", {
-      params: { 
+      params: {
         with_genres: "16",
         sort_by: "popularity.desc",
-        primary_release_year: "2023" ,
-  
-      }});
+        primary_release_year: "2023",
+      },
+    });
     setTop10(results.slice(0, 5));
   };
 
@@ -27,22 +26,17 @@ export default function Recommend() {
   }, []);
 
   return (
-    <div className="">
-      <Swiper
-        modules={[Autoplay]}
-        autoplay={{
-          delay: 6000,
-          disableOnInteraction: false,
-        }}
-        rewind={true}
+    <>
+      <BaseSwiper
+        data={top10}
+        renderItem={(movie) => <RecommendCard movie={movie} />}
+        autoplay={true}
+        delay={3000}
         loop={true}
-      >
-        {top10.map((movie:MovieItem) => (
-          <SwiperSlide key={movie.id}>
-            <RecommendCard movie={movie}/>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
+        unique="weeklytrend"
+        slidesPerView={1}
+        speed={500}
+      />
+    </>
   );
 }

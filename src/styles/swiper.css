@@ -1,0 +1,36 @@
+.swiper-container {
+  position: relative;
+  width: 100%;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  width: 50px;
+  height: 50px;
+  padding: 15px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* 호버 시 버튼 보이기 */
+.swiper-container:hover .swiper-button-prev,
+.swiper-container:hover .swiper-button-next {
+  opacity: 1;
+  pointer-events: auto; /* 버튼 클릭 가능 */
+}
+
+/* 왼쪽 버튼 */
+.swiper-button-prev {
+  left: 10px; /* 왼쪽 여백 */
+}
+
+/* 오른쪽 버튼 */
+.swiper-button-next {
+  right: 10px; /* 오른쪽 여백 */
+}
