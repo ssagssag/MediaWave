@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { getGenreMap, getMovieStills } from "../../api/axios";
+import { getGenreMap, getMovieStills } from "../../../api/axios";
 import { Link } from "react-router";
-import playIcon from "../../assets/Play_icon.svg";
+import playIcon from "../../../assets/Play_icon.svg";
+import { IMAGE_BASE_URL } from "../../../constants/urls";
 
-export default function RecommendCard({ movie }: RecommendProps) {
+export default function TrendingWeeklyItem({ movie }: RecommendProps) {
   const [backdropPath, setBackdropPath] = useState("");
   const [firstGenre, setFirstGenre] = useState<string>("");
   const [secondGenre, setSecondGenre] = useState<string>("");
@@ -32,40 +33,40 @@ export default function RecommendCard({ movie }: RecommendProps) {
 
   return (
     <Link to={`/movie/${movie.id}`}>
-      <div className="w-[1030px] h-[600px] rounded-[30px] relative overflow-hidden mt-10">
+      <div className="w-[1030px] h-[600px] rounded-3xl relative overflow-hidden mt-10">
         {/* 그라데이션 오버레이 */}
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-[#000000] via-[#1E1E1E]/30 to-transparent z-10" />
         {/* 영화 정보 */}
-        <div className="absolute z-20 text-white font-noto bottom-[60px]">
+        <div className="absolute z-20 text-[#ffffff] font-noto bottom-[60px]">
           {/* 영화 장르 */}
-          <div className="flex flex-row items-center gap-2 ml-10 text-[13px]">
+          <div className="flex flex-row items-center gap-2 ml-10 text-base font-semibold">
             <p className="bg-black/60 px-4 py-1 rounded-full">{firstGenre}</p>
             <p className="bg-black/60 px-4 py-1 rounded-full">{secondGenre}</p>
           </div>
 
           {/* 영화 타이툴 */}
           <p
-            className={`font-extrabold ml-10 w-[500px] mt-4
-          ${movie.title.length > 20 ? "text-[30px] leading-tight" : "text-[35px]"}`}
+            className={`font-bold ml-10 w-[500px] mt-4
+          ${movie.title.length > 20 ? "text-4xl leading-tight" : "text-6xl"}`}
           >
             {movie.title}
           </p>
 
           {/* 영화 개요 */}
-          <p className={`text-[13px] w-[400px] mt-4 ml-10 text-white/70`}>
+          <p className={`text-xl w-[400px] mt-4 ml-10 text-white/70`}>
             {movie.overview.length < 240 ? movie.overview : `${movie.overview.slice(0, 240)}...`}
           </p>
 
           <div className="relative flex flex-row items-center mt-4 font-pretendard font-semiBold ml-10">
             <img className="absolute ml-1.5 w- h-5" src={playIcon} alt="재생하기" />
-            <p className="px-4 py-1 bg-white text-black rounded-full text-[13px]">ㅤWatch </p>
+            <p className="px-4 py-1 bg-white text-black rounded-full text-base ">ㅤWatch </p>
           </div>
         </div>
 
         {/* 영화 스틸이미지 */}
         <img
-          className="w-full h-full rounded-[30px] object-cover"
-          src={`https://image.tmdb.org/t/p/original${backdropPath}`}
+          className="w-full h-full rounded-3xl object-cover"
+          src={`${IMAGE_BASE_URL}/original/${backdropPath}`}
           alt={movie.title}
         />
       </div>
