@@ -14,7 +14,7 @@ export default function TrendingWeeklyItem({ movie }: RecommendProps) {
       try {
         const backdrops = await getMovieStills(movie.id);
         if (backdrops && backdrops.length > 0) {
-          setBackdropPath(backdrops[5].file_path);
+          setBackdropPath(backdrops[5]?.file_path);
         } else {
           console.error("No backdrops available.");
         }
