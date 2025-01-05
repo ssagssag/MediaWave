@@ -7,36 +7,39 @@ import nowplaying from "../../../assets/categoryController/nowplaying.svg";
 import myfavorites from "../../../assets/categoryController/myfavorites.svg";
 import mylists from "../../../assets/categoryController/mylists.svg";
 
-export default function CategoryController() {
-  const categoryLists = [
-    "Popular",
-    "Upcoming",
-    "Top Rated",
-    "Trending",
-    "Recommend",
-    "Now Playing",
-    "My Favorites",
-    "My List",
-  ];
+interface CategoryControllerProps {
+  scrollToCategory: (category: string) => void;
+}
 
+export default function CategoryController({ scrollToCategory }: CategoryControllerProps) {
   const svgs = [popular, upcoming, toprated, trending, recommend, nowplaying, myfavorites, mylists];
+
+  const categoryLists = [
+    { name: "Popular", key: "popular" },
+    { name: "Upcoming", key: "upcoming" },
+    { name: "Top Rated", key: "top_rated" },
+    { name: "Trending", key: "daily_trending" },
+    { name: "Now Playing", key: "now_playing" },
+    { name: "My Favorites", key: "my_favorites" },
+    { name: "My Lists", key: "my_lists" },
+  ];
 
   return (
     <div
       className={`
-          w-full h-full bg-[#414141] p-6 rounded-2xl 
+          w-full h-full bg-main-500 p-6 rounded-2xl 
           shadow-md backdrop-blur-md border-2 border-white/50 `}
     >
-      <div className="flex flex-col gap-11 ">
+      <div className="flex flex-col justify-center items-start gap-11 h-full ">
         {categoryLists.map((item, index) => (
-          <div key={index}>
-            <div className="flex items-center">
+          <div className="cursor-pointer " key={index} onClick={() => scrollToCategory(item.key)}>
+            <div className="flex items-center gap-2 ">
               {/* 아이콘 */}
-              <img src={svgs[index]} alt={item} />
+              <img src={svgs[index]} alt={item.name} />
 
               {/* category */}
-              <h3 className=" font-pretendard text-white ml-4 flex flex-row items-center gap-2 text-base font-semibold">
-                {item}
+              <h3 className=" font-pretendard text-white  flex flex-row items-center gap-2 text-base font-semibold">
+                {item.name}
               </h3>
             </div>
           </div>

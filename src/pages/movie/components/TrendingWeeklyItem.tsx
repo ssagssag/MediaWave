@@ -14,7 +14,7 @@ export default function TrendingWeeklyItem({ movie }: RecommendProps) {
       try {
         const backdrops = await getMovieStills(movie.id);
         if (backdrops && backdrops.length > 0) {
-          setBackdropPath(backdrops[5].file_path);
+          setBackdropPath(backdrops[5]?.file_path);
         } else {
           console.error("No backdrops available.");
         }
@@ -33,7 +33,7 @@ export default function TrendingWeeklyItem({ movie }: RecommendProps) {
 
   return (
     <Link to={`/movie/${movie.id}`}>
-      <div className="w-[1030px] h-[600px] rounded-3xl relative overflow-hidden mt-10">
+      <div className="w-full h-[600px] rounded-3xl relative overflow-hidden ">
         {/* 그라데이션 오버레이 */}
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-[#000000] via-[#1E1E1E]/30 to-transparent z-10" />
         {/* 영화 정보 */}
