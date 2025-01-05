@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* 스켈레톤 ui class명 */
+  .skeleton {
+    @apply animate-shimmer bg-gradient-custom bg-custom;
+  }
+
+  /* flex 정렬 class명 */
+  .item-middle {
+    @apply flex items-center justify-center;
+  }
+
+  .item-left {
+    @apply flex items-center justify-start;
+  }
+
+  .item-around {
+    @apply flex items-center justify-around;
+  }
+
+  .item-between {
+    @apply flex items-center justify-between;
+  }
+
+  .item-row {
+    @apply flex flex-col items-center justify-between;
+  }
+}
