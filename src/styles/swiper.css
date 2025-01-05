@@ -1,8 +1,6 @@
 .swiper-container {
   position: relative;
   width: 100%;
-  max-width: 100%;
-  overflow: hidden; /* 슬라이드의 외부 노출 방지 */
 }
 
 .swiper-button-prev,

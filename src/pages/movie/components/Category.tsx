@@ -6,8 +6,6 @@ const Category = forwardRef<HTMLDivElement, { title: string; endpoint: string; c
   ({ title, endpoint, category }, ref) => {
     const [datas, setDatas] = useState<MovieItem[]>([]);
 
-    console.log(datas);
-
     useEffect(() => {
       const fetchData = async () => {
         try {

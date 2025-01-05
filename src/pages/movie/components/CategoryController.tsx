@@ -27,18 +27,18 @@ export default function CategoryController({ scrollToCategory }: CategoryControl
   return (
     <div
       className={`
-          w-full h-full bg-[#414141] p-6 rounded-2xl 
+          w-full h-full bg-main-500 p-6 rounded-2xl 
           shadow-md backdrop-blur-md border-2 border-white/50 `}
     >
-      <div className="flex flex-col gap-11 ">
+      <div className="flex flex-col justify-center items-start gap-11 h-full ">
         {categoryLists.map((item, index) => (
-          <div className="cursor-pointer" key={index} onClick={() => scrollToCategory(item.key)}>
-            <div className="flex items-center">
+          <div className="cursor-pointer " key={index} onClick={() => scrollToCategory(item.key)}>
+            <div className="flex items-center gap-2 ">
               {/* 아이콘 */}
               <img src={svgs[index]} alt={item.name} />
 
               {/* category */}
-              <h3 className=" font-pretendard text-white ml-4 flex flex-row items-center gap-2 text-base font-semibold">
+              <h3 className=" font-pretendard text-white  flex flex-row items-center gap-2 text-base font-semibold">
                 {item.name}
               </h3>
             </div>

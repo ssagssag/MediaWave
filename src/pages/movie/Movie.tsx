@@ -23,18 +23,15 @@ export default function Movie() {
     if (ref && ref.current) {
       ref.current.scrollIntoView({
         behavior: "smooth",
-        block: "start",
+        block: "center",
       });
     }
   };
   return (
-    <main
-      className={`
-      flex flex-col items-center justify-center w-full`}
-    >
+    <div className=" p-5">
       {/* 키워드로 추천 */}
-      <div className="mt-[100px] w-full">
-        <ul className="flex justify-center items-center gap-2">
+      <div>
+        <ul className="flex justify-left items-center gap-2">
           <li className="bg-white p-2 rounded-full">
             <button onClick={() => scrollToCategory("korea_movie")}>#한국</button>
           </li>
@@ -50,18 +47,19 @@ export default function Movie() {
           </li>
         </ul>
       </div>
-      <div className="w-[1440px] flex flex-row justify-between gap-7 mt-16 px-10">
-        <aside className="w-[400px] h-[600px] mt-11 overflow-hidden">
+      {/* category controller & banner */}
+      <div className="w-full flex items-center gap-10 mt-11 ">
+        <aside className="w-[260px] h-[600px]  overflow-hidden ">
           <CategoryController scrollToCategory={scrollToCategory} />
         </aside>
 
-        <section className="w-[1030px] h-[600px] rounded-3xl ">
+        <section className="w-[1230px] h-[600px]  rounded-3xl ">
           <TrendingWeekly />
         </section>
       </div>
 
+      {/* 카테고리 컴포넌트 */}
       <div className="mt-10 w-[1440px]  ">
-        {/* 카테고리 컴포넌트 */}
         <Category title="Popular" endpoint="/movie/popular" category="popular" ref={categoryRefs.popular} />
         <Category title="Upcoming" endpoint="/movie/upcoming" category="upcoming" ref={categoryRefs.upcoming} />
         <Category title="Top Rated" endpoint="/movie/top_rated" category="top_rated" ref={categoryRefs.top_rated} />
@@ -107,6 +105,6 @@ export default function Movie() {
           ref={categoryRefs.christmas_movie}
         />
       </div>
-    </main>
+    </div>
   );
 }
