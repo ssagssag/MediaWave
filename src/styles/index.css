@@ -1,13 +1,3 @@
 @import "./font.css";
 @import "./swiper.css";
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* 스켈레톤 ui class명 */
-@layer components {
-  .skeleton {
-    @apply animate-shimmer bg-gradient-custom bg-custom;
-  }
-}
+@import "./tailwind.css";

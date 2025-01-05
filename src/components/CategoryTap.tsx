@@ -4,7 +4,7 @@ export default function CategoryTap({ activeTab, onTabChange }: CategoryTapProps
   const tabs = ["Movie","TV Series", "Animation"];
 
   return (
-    <div className="flex flex-row items-center gap-10 relative ">
+    <div className="relative flex flex-row items-center gap-10 ">
       <div
         style={{ transform: `translateX(${activeTab * 127}px)` }} 
         className={`
