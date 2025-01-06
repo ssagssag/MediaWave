@@ -1,7 +1,19 @@
-
+import { useNavigate } from "react-router-dom";
 
 export default function CategoryTap({ activeTab, onTabChange }: CategoryTapProps) {
-  const tabs = ["Movie","TV Series", "Animation"];
+  const navigate = useNavigate();
+  
+  const tabs = [
+    { name: "Movie", path: "/movie" },
+    { name: "TV Series", path: "/tv-series" },
+    { name: "Animation", path: "/animation" },
+    { name: "Genre", path: "/genre" }
+  ];
+
+  const handleTabClick = (index: number, path: string) => {
+    onTabChange(index);
+    navigate(path);
+  };
 
   return (
     <div className="relative flex flex-row items-center gap-10 ">
@@ -16,13 +28,13 @@ export default function CategoryTap({ activeTab, onTabChange }: CategoryTapProps
         <div
           className={`hover:cursor-pointer rounded-[17px] w-[88px] h-[33px] flex items-center justify-center z-20`} 
           key={index} 
-          onClick={() => onTabChange(index)}>
+          onClick={() => handleTabClick(index, tab.path)}>
           <p className={`
             font-pretendard font-semibold text-[18px]
             ${activeTab === index ? "text-white" : "text-white/50"}
-            `}>{tab}</p>
+            `}>{tab.name}</p>
         </div>
       ))}
     </div>
-  )
+  );
 }

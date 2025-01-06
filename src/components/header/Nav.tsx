@@ -1,8 +1,12 @@
-import logo from "../assets/Logo.svg";
+import { useNavigate } from "react-router";
+import logo from "../../assets/Logo.svg";
 import CategoryTap from "./CategoryTap";
-import SearchBar from "./SearchBar";
+import NavUtils from "./NavUtils";
+import TrendingMovies from "./TrendingMovies";
 
 export default function Nav({ className, activeTab, onTabChange }: NavProps) {
+  const navigate = useNavigate();
+
   return (
     <div
       className={`
@@ -11,14 +15,19 @@ export default function Nav({ className, activeTab, onTabChange }: NavProps) {
     >
       <div className="flex justify-between w-full max-w-[1440px] ">
         {/* 로고 */}
-        <img src={logo} alt="홈으로 가기" />
+        <button onClick={() => navigate("/movie")}>
+          <img src={logo} alt="홈으로 가기" />
+        </button>
         {/* 오른쪽 Nav */}
         <div
           className={`
             flex flex-row items-center justify-between w-[1095px]`}
         >
           <CategoryTap activeTab={activeTab} onTabChange={onTabChange} />
-          <SearchBar />
+          <div className="gap-4 item-middle">
+            <TrendingMovies />
+            <NavUtils />
+          </div>
         </div>
       </div>
     </div>
