@@ -1,6 +1,6 @@
 import { useState } from "react";
-import searchIcon from "../assets/Search_icon.svg";
-import { searchMovie } from "../api/axios";
+import searchIcon from "../../assets/Search_icon.svg";
+import { searchMovie } from "../../api/axios";
 import { useNavigate } from "react-router";
 
 export default function SearchBar() {
