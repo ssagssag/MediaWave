@@ -193,13 +193,20 @@ export const getTVGenres = async () => {
   }
 };
 
+
+{
+  /* search */
+}
+
 // 영화 검색
-export const searchMovie = async (query: string) => {
+export const searchMulti = async (query: string) => {
   if (!query) return [];
   try {
-    const response = await axiosInstance.get(`/search/movie`, {
+    const response = await axiosInstance.get(`/search/multi`, {
       params: {
         query,
+        include_adult: 'true', 
+        language: 'en-US'
       },
     });
     return response.data.results;

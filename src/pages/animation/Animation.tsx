@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { ClipLoader } from "react-spinners";
 import { axiosInstance } from "../../api/axios";
-import SearchBar from "../../components/SearchBar";
+import SearchBar from "../search/components/SearchBar";
 import Top5 from "../../components/animation/Top5";
 import PosterCard from "../../components/poster/PosterCard";
 
@@ -43,7 +43,7 @@ export default function Animation() {
           <h1 className="mt-20 mb-6 font-title text-white text-[50px] "> All animations </h1>
           <SearchBar />
           {/* All animations */}
-          <div className=" bg-slate-300/10 p-16 rounded-3xl mt-14 border-2 border-white/50 backdrop-blur-md">
+          <div className="w-full bg-slate-300/10 p-16 rounded-3xl mt-14 border-2 border-white/50 backdrop-blur-md">
             <PosterCard cards={animations} />
           </div>
         </div>

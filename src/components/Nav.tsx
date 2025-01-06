@@ -1,12 +1,12 @@
 import logo from "../assets/Logo.svg";
 import CategoryTap from "./CategoryTap";
-import SearchBar from "./SearchBar";
+import SearchBar from "../pages/search/components/SearchBar";
 
 export default function Nav({ className, activeTab, onTabChange }: NavProps) {
   return (
     <div
       className={`
-      flex items-center justify-center w-[1440px]  ${className} px-11 
+      flex items-center justify-center w-[1440px] mt-12 ${className} px-11
     `}
     >
       <div className="flex justify-between w-full max-w-[1440px] ">
