@@ -18,8 +18,8 @@ export default function PosterCardItem({ item }: PosterCardItemProps) {
   }, [item.id]);
 
   return (
-    <Link to={`/movie/${item.id}`}>
-      <div className="w-[230px] h-[340px] bg-white/10 rounded-3xl overflow-hidden mb-7 relative shadow-custom-heavy group">
+    <Link to={`/movie/${item.id}`} className="block w-full h-full object-cover ">
+      <div className="w-full h-full bg-white/10 rounded-2xl overflow-hidden  relative shadow-custom-heavy group">
         {/* 그라데이션 오버레이 */}
         <div className="w-full h-[50%] bottom-0 absolute bg-gradient-to-t from-[#141414] to-transparent opacity-0 group-hover:opacity-100" />
         {/* 내용 */}
@@ -37,7 +37,7 @@ export default function PosterCardItem({ item }: PosterCardItemProps) {
         </div>
 
         <img
-          className="object-cover object-center "
+          className="object-cover object-center w-full h-52 "
           src={`${IMAGE_BASE_URL}/original/${item.poster_path}`}
           alt={item.title}
         />

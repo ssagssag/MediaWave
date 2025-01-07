@@ -38,13 +38,13 @@ export default function Animation() {
       {loading ? (
         <ClipLoader color="#ffffff" size={50} className="mt-[500px]" />
       ) : (
-        <div className="my-[150px] flex flex-col items-center">
+        <div className="  my-[150px] flex flex-col items-center">
           <Top5 animations={animations} />
           <h1 className="mt-20 mb-6 font-title text-white text-[50px] "> All animations </h1>
           <SearchBar />
           {/* All animations */}
-          <div className=" bg-slate-300/10 p-16 rounded-3xl mt-14 border-2 border-white/50 backdrop-blur-md">
-            <PosterCard cards={animations} />
+          <div className="w-full bg-slate-300/10 p-16 rounded-3xl mt-14 border-2 border-white/50 backdrop-blur-md">
+            <PosterCard cards={animations} unique="animation" />
           </div>
         </div>
       )}
