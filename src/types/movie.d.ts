@@ -13,6 +13,7 @@ interface MovieItem {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  genres: { id: number; name: string }[];
 }
 
 interface RecommendProps {

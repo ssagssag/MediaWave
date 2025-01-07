@@ -1,91 +1,107 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { ClipLoader } from "react-spinners";
-import { getMovieDetails } from "../../api/axios";
+import { getMovieCast, getMovieDetails, getMovieVideos } from "../../api/axios";
+import DetailButtons from "./components/DetailButtons";
+import TrailerSwiper from "./components/TrailerSwiper";
+import CastList from "./components/CastList";
+import { CastMember } from "./components/CastList";
 
 export default function DetailMovie() {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState<MovieItem | null>(null);
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [cast, setCast] = useState<CastMember[]>([]);
 
   useEffect(() => {
-    const fetchMovieDetails = async () => {
+    const fetchData = async () => {
       if (id) {
-        const movieId = parseInt(id);
-        const details = await getMovieDetails(movieId);
-        setMovieDetails(details);
+        try {
+          setLoading(true);
+          
+          const [details, movieVideos, castData] = await Promise.all([
+            getMovieDetails(parseInt(id)),
+            getMovieVideos(parseInt(id)),
+            getMovieCast(parseInt(id))
+          ]);
+          
+          setMovieDetails(details);
+          setVideos(movieVideos);
+          setCast(castData);
+
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setLoading(false);
+        }
       }
     };
-    fetchMovieDetails();
+
+    fetchData();
   }, [id]);
 
-  return (
-    <div className="relative flex items-center justify-center w-full h-screen">
-      {!movieDetails ? (
-        <div>
-          <ClipLoader color="#ffffff" size={50} />
-        </div>
-      ) : (
-        <>
-          <div className="absolute z-10 w-full h-full bg-black/50" />
-          <div
-            className={`
-        absolute z-0
-        w-full h-screen bg-cover bg-center
-        `}
-            style={{
-              filter: "blur(6px)",
-              backgroundImage: `url(https://image.tmdb.org/t/p/original${movieDetails.poster_path})`,
-            }}
-          ></div>
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <ClipLoader color="#ffffff" size={50} />
+      </div>
+    );
+  }
 
-          {/* details */}
-          {/* details poster */}
-          <div className="absolute z-20 w-full h-full grid grid-cols-1 md:grid-cols-2 items-center text-white px-64 py-8">
-            <div className="flex justify-center">
-              <img
-                className={`rounded-3xl max-w-sm `}
-                src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`}
-                alt={movieDetails.title}
-              />
+  return (
+    <div className="fixed top-0 left-0 w-screen h-screen">
+      <article className="relative w-full h-full overflow-scroll">
+        <div className="absolute z-10 w-full h-full bg-gradient-to-r from-[#1E1E1E] from-0% via-[#1E1E1E] via-52% to-transparent to-100%" />
+
+        <div
+          className="absolute top-0 right-0 z-0 w-1/2 h-full bg-cover"
+          style={{
+            backgroundImage: `url(https://image.tmdb.org/t/p/original${movieDetails?.poster_path})`,
+          }}
+        />
+
+        <div className="w-full mx-auto max-w-[1520px]">
+          <div className="relative z-20 flex flex-col h-screen gap-4">
+            <div className="px-10 pt-80">
+              <ul className="flex gap-2 mb-4">
+                {movieDetails?.genres?.map((genre) => (
+                  <li key={genre.id} className="px-4 py-1 mb-1 text-sm rounded-full text-main-400 bg-white/70">
+                    {genre.name}
+                  </li>
+                ))}
+              </ul>
+
+              <h1 className="mb-6 leading-tight text-white text-title-3xl text-clamp">{movieDetails?.title}</h1>
+
+              <p className="w-[450px] max-h-[9em] overflow-y-auto scrollbar-hide text-white font-pretendard">
+                {movieDetails?.overview}
+              </p>
             </div>
 
-            {/* details info */}
-            <div>
-              <h1
-                className={`
-            text-white font-title mb-40 leading-tight text-clamp
-            `}
-              >
-                {movieDetails.title}
-              </h1>
-              <p>{movieDetails.video}</p>
-
-              <p
-                className={`
-            font-pretendard
-            text-[20px] sm:text-[9px] md:text-[10px] lg:text-[15px] xl:text-[20px]
-            mb-5
-          `}
-              >
-                {movieDetails.release_date} | ⭐ {Math.round(movieDetails.vote_average)} / 10
-              </p>
-
-              <p
-                className={`
-            text-white font-pretendard
-            w-[450px] max-h-[9em] overflow-y-auto scrollbar-hide
-            `}
-              >
-                {movieDetails.overview}
-              </p>
-
-              <div className="bg-slate-100/10 rounded-3xl pr-2 w-28 h-6 mt-8 flex items-center justify-center ">
-                <p className="text-white font-pretendard text-xs">↗ {movieDetails.popularity}</p>
+            <div className="relative">
+              <div className="p-8 absolute right-[-1520px] w-[1520px] h-full bg-gradient-to-t from-[#1E1E1E] via-[#1E1E1E]/85 to-transparent" />
+              <div className="p-8 relative z-10 bg-gradient-to-t from-[#1E1E1E] via-[#1E1E1E]/85 to-transparent">
+                <div className="flex justify-end px-10 mb-8">
+                  <DetailButtons
+                    movieId={movieDetails?.id ?? 0}
+                    onFavoriteClick={() => console.log("Favorite")}
+                    onReviewClick={() => console.log("Review")}
+                    onCommentClick={() => console.log("Comment")}
+                    onShareClick={() => console.log("Share")}
+                  />
+                </div>
+                {videos.length > 0 && (
+                  <div className="mt-8">
+                    <TrailerSwiper videos={videos} />
+                  </div>
+                )}
               </div>
             </div>
           </div>
-        </>
-      )}
+        </div>
+        <CastList cast={cast} />
+      </article>
     </div>
   );
 }

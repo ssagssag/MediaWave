@@ -28,9 +28,9 @@ export default function Router() {
         <Route path="/animation" element={<Animation />} />
         <Route path="/genre" element={<Genre />} />
         <Route path="/details/tv/:id" element={<DetailTv />} />
-        <Route path="/details/movie/:id" element={<DetailMovie />} />
+        {/* <Route path="/details/movie/:id" element={<DetailMovie />} /> */}
+        <Route path="/movie/:id" element={<DetailMovie />} />
       </Route>
-      <Route path="/movie/:id" element={<DetailMovie />} />
 
       <Route path="*" element={<NotFound />} />
     </Routes>

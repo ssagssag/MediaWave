@@ -116,7 +116,31 @@ export const getTrendingMovies = async () => {
     console.error("getTrendingMovies 에러 발생:", error);
     return [];
   }
- };
+};
+
+export const getMovieVideos = async (movieId: number) => {
+  try {
+    const response = await axiosInstance.get(`/movie/${movieId}/videos`);
+    // 유튜브 트레일러만 필터링
+    return response.data.results.filter(
+      (video: any) => video.site === "YouTube" && (video.type === "Trailer" || video.type === "Teaser"),
+    );
+  } catch (error) {
+    console.error("Error fetching movie videos:", error);
+    throw error;
+  }
+};
+
+// api/axios.ts에 추가
+export const getMovieCast = async (movieId: number) => {
+  try {
+    const response = await axiosInstance.get(`/movie/${movieId}/credits`);
+    return response.data.cast;
+  } catch (error) {
+    console.error("Failed to fetch cast:", error);
+    return [];
+  }
+};
 
 {
   /* TV Series */
