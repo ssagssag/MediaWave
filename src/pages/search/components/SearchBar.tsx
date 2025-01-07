@@ -1,44 +1,9 @@
 import { useState } from "react";
-import { searchMulti } from "../../../api/axios";
-import { useNavigate } from "react-router";
 import searchIcon from "../../../assets/Search_icon.svg";
 import searchIcon_focus from "../../../assets/Search_focuse.svg";
 
-export default function SearchBar() {
-  const navigate = useNavigate();
-
-  const [searchQuery, setSearchQuery] = useState("");
+export default function SearchBar({searchQuery, onSearch}: SearchBarProps) {
   const [isFocused, setIsFocused] = useState(false);
-
-  const [person, setPerson] = useState([]);
-  const [tv, setTv] = useState([]);
-  const [movie, setMovie] = useState([]);
-
-  const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value;
-    setSearchQuery(query);
-
-    if (query.length > 2) {
-      const data = await searchMulti(query);
-      const personData = data.filter((data) => data.media_type === "person");
-      setPerson(personData);
-
-      const tvData = data.filter((data) => data.media_type ==="tv" );
-      setTv(tvData);
-
-      const movieData = data.filter((data) => data.media_type === "movie");
-      setMovie(movieData);
-
-    } else {
-      setPerson([]);
-      setTv([]);
-      setMovie([]);
-    }
-  };
-
-  const handleResultClick = (id: string) => {
-    navigate(`/movie/${id}`);
-  };
 
   return (
     <div className="flex felx-col items-center h-full mx-auto">
@@ -47,7 +12,7 @@ export default function SearchBar() {
         <form onSubmit={(e) => e.preventDefault()}>
           <input
             value={searchQuery}
-            onChange={handleSearch}
+            onChange={(e) => onSearch(e.target.value)}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             className={`

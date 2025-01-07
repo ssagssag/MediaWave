@@ -107,6 +107,17 @@ export const getMovieDetails = async (id: number): Promise<MovieItem> => {
   }
 };
 
+// 영화 - 트렌드
+export const getTrendingMovies = async () => {
+  try {
+    const response = await axiosInstance.get("/trending/movie/day");
+    return response.data.results.slice(0, 10); // 상위 10개만 가져오기
+  } catch (error) {
+    console.error("getTrendingMovies 에러 발생:", error);
+    return [];
+  }
+ };
+
 {
   /* TV Series */
 }

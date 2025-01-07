@@ -1,3 +1,7 @@
 @import "./font.css";
 @import "./swiper.css";
 @import "./tailwind.css";
+
+html, body {
+  background-color: #1E1E1E;
+}
