@@ -2,14 +2,12 @@
   position: relative;
   width: 100%;
 }
-
 .swiper-button-prev,
 .swiper-button-next {
   position: absolute;
   top: 50%;
-  z-index: 10;
+  z-index: 5;
   width: 50px;
-  height: 50px;
   color: #fff;
   display: flex;
   justify-content: center;
@@ -17,7 +15,7 @@
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.3s ease;
-  transform: translateY(-50%);
+  transform: translateY(-30%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,12 +30,16 @@
 
 /* 왼쪽 버튼 */
 .swiper-button-prev {
-  /* 왼쪽 여백 */
-  /* left: -10px; */
+  left: -40px;
 }
 
 /* 오른쪽 버튼 */
 .swiper-button-next {
-  /* 오른쪽 여백 */
-  /* right: -10px; */
+  right: -40px;
+}
+
+/* 슬라이더 순서가  왼쪽 또는 오른쪽 끝일 때 버튼 opacity :0 */
+.swiper-button-prev.swiper-button-disabled,
+.swiper-button-prev.swiper-button-disabled {
+  opacity: 0;
 }

@@ -12,6 +12,7 @@ export default function PosterCard({ cards, unique }: PosterCardProps) {
       slidesPerView={5}
       slidesPerGroup={5}
       navigate={true}
+      speed={800}
     />
   );
 }

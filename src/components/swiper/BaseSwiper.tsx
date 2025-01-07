@@ -28,8 +28,10 @@ export default function BaseSwiper<T>({
   navigate,
 }: SwiperComponentProps<T>) {
   return (
-    <div className="swiper-container ">
+    <div className="swiper-container h-full relative flex items-center">
+      {navigate && <div className={`swiper-button-prev prev-${unique} `}></div>}
       <Swiper
+        className="h-full"
         modules={[Autoplay, Navigation, Pagination]}
         autoplay={autoplay ? { delay, disableOnInteraction: false } : undefined}
         loop={loop}
@@ -45,16 +47,13 @@ export default function BaseSwiper<T>({
         speed={speed ? speed : undefined} // 슬라이더 넘어가는 속도
       >
         {data.map((item, index) => (
-          <SwiperSlide key={index}>{renderItem(item, index)}</SwiperSlide>
+          <SwiperSlide className="" key={index}>
+            {renderItem(item, index)}
+          </SwiperSlide>
         ))}
       </Swiper>
 
-      {navigate && (
-        <>
-          <div className={`swiper-button-prev prev-${unique}`}></div>
-          <div className={`swiper-button-next next-${unique}`}></div>
-        </>
-      )}
+      {navigate && <div className={`swiper-button-next next-${unique} `}></div>}
     </div>
   );
 }

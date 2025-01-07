@@ -34,12 +34,12 @@ export default function Movie() {
     }
   };
   return (
-    <div className="relative ">
-      <section className="absolute top-0 left-0 w-full h-[80vh] z-[0]">
+    <div className=" bg-main-900  ">
+      <section className=" h-[70vh] z-[0]  ">
         <TrendingWeekly />
       </section>
 
-      <div className="relative w-full z-[1] pt-[600px]">
+      <div className="  z-[5]  bg-main-900">
         <Category title="Popular" endpoint="/movie/popular" category="popular" ref={categoryRefs.popular} />
         <Category title="Upcoming" endpoint="/movie/upcoming" category="upcoming" ref={categoryRefs.upcoming} />
         <Category title="Top Rated" endpoint="/movie/top_rated" category="top_rated" ref={categoryRefs.top_rated} />

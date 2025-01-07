@@ -19,7 +19,7 @@ const Category = forwardRef<HTMLDivElement, { title: string; endpoint: string; c
     }, []);
 
     return (
-      <div ref={ref} className="p-10 ">
+      <div ref={ref} className="p-10  relative z-[5] ">
         {/* 카테고리 타이틀 */}
         <h1 className="font-pretendard font-bold text-white text-3xl mb-5">{title}</h1>
         {/* 카테고리 카드 */}
