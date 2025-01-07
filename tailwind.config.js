@@ -91,12 +91,28 @@ export default {
       // 스켈레톤
       animation: {
         shimmer: "shimmer 1.5s infinite linear",
+        slide: "slide 2s linear infinite",
+        movieFlip: 'movieFlip 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) both',
       },
       keyframes: {
         shimmer: {
           "0%": { backgroundPosition: "200%" },
           "100%": { backgroundPosition: "-200%" },
         },
+        slide: {
+          "0%": { transform: "translateY(0)" },
+          "100%": { transform: "translateY(-100%)" },
+        },
+        movieFlip: {
+          '0%': { 
+            transform: 'translateY(0) rotateX(0)',
+            transformOrigin: '50% 0'
+          },
+          '100%': { 
+            transform: 'translateY(-100%) rotateX(180deg)',
+            transformOrigin: '50% 100%'
+          }
+        }
       },
       backgroundImage: {
         "gradient-custom": "linear-gradient(to right, #D9D9D9 0%, #EDEEF1 50%, #D9D9D9 100%)",

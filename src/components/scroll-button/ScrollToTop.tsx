@@ -34,7 +34,7 @@ export default function ScrollToTop() {
   return (
     <button
       onClick={scrollToTop}
-      className="fixed bottom-8 right-8 h-[72px] w-[72px] rounded-full bg-white/60 shadow-lg transition-all hover:bg-white group"
+      className="fixed bottom-28 right-36 h-[72px] w-[72px] rounded-full bg-white/60 shadow-lg transition-all hover:bg-white group"
       aria-label="맨 위로 스크롤"
     >
       <TopArrow className="mx-auto transition-colors text-main-900 group-hover:text-point-500" />
