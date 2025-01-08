@@ -3,8 +3,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import PersonCardItem from "./PersonCardItem";
 
 export default function PersonCard({ person, unique }: PersonProps) {
+  
+
+
   return (
-    <div className="flex flex-row items-center justify-center gap-10 max-w-4xl mt-16 ">
+    <div className="flex flex-row items-center justify-center gap-10 max-w-3xl">
       {/* 스와이퍼 적용 */}
       {person.length >= 7 ? (
       <div className="swiper-container ">
@@ -17,7 +20,6 @@ export default function PersonCard({ person, unique }: PersonProps) {
             prevEl: `.prev-${unique}`,
             nextEl: `.next-${unique}`,
           }}
-          spaceBetween={5}
         >
           {person.map((item, index) => (
             <SwiperSlide key={index}>

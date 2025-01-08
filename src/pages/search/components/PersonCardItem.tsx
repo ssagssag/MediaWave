@@ -11,7 +11,7 @@ export default function PersonCardItem({ item }: PersonCardItemProps) {
   return (
     <div className="flex flex-col items-center">
       {/* 인물 프로필 이미지 */}
-      <div className="rounded-full bg-main-400 w-24 h-24 overflow-hidden">
+      <div className="rounded-full bg-main-400 w-20 h-20 overflow-hidden">
         {item.profile_path ? (
           <img
             className="rounded-full w-full h-full object-cover object-center"

@@ -9,26 +9,30 @@ interface BaseResult {
   media_type: 'movie' | 'tv' | 'person';
 }
 
-interface MovieResult extends BaseResult {
-  media_type: 'movie';
+interface MediaResult extends BaseResult {
+  id: number;
+  media_type: "movie" | "tv";
   poster_path: string | null;
-  backdrop_path: string | null;
   overview: string;
   vote_average: number;
-  title: string;
-  original_title: string;
-  release_date: string;
+  title?: string; // movie일 경우
+  name?: string;  // tv일 경우
 }
 
-interface TVResult extends BaseResult {
-  media_type: 'tv';
-  poster_path: string | null;
-  backdrop_path: string | null;
-  overview: string;
-  vote_average: number;
-  name: string;
-  original_name: string;
-  first_air_date: string;
+interface MediaCardProps {
+  media: MediaResult[];
+}
+
+interface MediaCardItemProps {
+  item: {
+    id: number;
+    media_type: "movie" | "tv";
+    poster_path: string | null;
+    overview: string;
+    vote_average: number;
+    title?: string; // movie일 경우
+    name?: string;  // tv일 경우
+  };
 }
 
 interface PersonResult extends BaseResult {

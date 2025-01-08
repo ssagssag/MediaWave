@@ -19,15 +19,15 @@ export default function Search() {
       const data = await searchMulti(query);
 
       const sortedPerson = data
-      .filter((item: PersonResult) => item.media_type === "person")
-      .sort((a, b) => {
-        if (a.profile_path && !b.profile_path) return -1;
-        if(!a.profile_path && b.profile_path) return 1;
-        return 0;
-      })
+        .filter((item: PersonResult) => item.media_type === "person")
+        .sort((a: PersonResult, b: PersonResult) => {
+          if (a.profile_path && !b.profile_path) return -1;
+          if (!a.profile_path && b.profile_path) return 1;
+          return 0;
+        });
       setPerson(sortedPerson);
-      setTv(data.filter((item: TVResult) => item.media_type === "tv"));
-      setMovie(data.filter((item: MovieResult) => item.media_type === "movie"));
+      setTv(data.filter((item: MediaResult) => item.media_type === "tv" && item.poster_path));
+      setMovie(data.filter((item: MediaResult) => item.media_type === "movie" && item.poster_path));
     } else {
       setPerson([]);
       setTv([]);
@@ -44,11 +44,11 @@ export default function Search() {
         </Link>
         <SearchBar searchQuery={searchQuery} onSearch={handleSearch} />
       </header>
-      <main>
-        {/* 인물 리스트 - todo: 조건부 */}
-        <PersonCard person={person} unique="person-swiper" />
-        {/* 미디어 카드 2단 - todo: 필터링 렌더링 */}
-        <MediaCard tv={tv} movie={movie} />
+      <main className="mt-14 mb-40 flex flex-col items-center gap-20">
+        {/* 인물 카드 렌더링 */}
+        {person.length > 0 && <PersonCard person={person} unique="person-swiper" />}
+        {/* media 카드 렌더링 */}
+        <MediaCard media={[...tv,...movie]} />
       </main>
     </div>
   );
