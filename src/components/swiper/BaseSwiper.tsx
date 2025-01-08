@@ -1,7 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/swiper-bundle.css";
-
 interface SwiperComponentProps<T> {
   data: T[]; // 슬라이드에 표시할 데이터
   renderItem: (item: T, index: number) => React.ReactNode; // 데이터 렌더링 함수
@@ -47,7 +46,7 @@ export default function BaseSwiper<T>({
         speed={speed ? speed : undefined} // 슬라이더 넘어가는 속도
       >
         {data.map((item, index) => (
-          <SwiperSlide className="" key={index}>
+          <SwiperSlide className=" " key={index}>
             {renderItem(item, index)}
           </SwiperSlide>
         ))}

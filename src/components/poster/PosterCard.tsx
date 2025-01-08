@@ -9,7 +9,7 @@ export default function PosterCard({ cards, unique }: PosterCardProps) {
       autoplay={false}
       loop={false}
       unique={unique}
-      slidesPerView={5}
+      slidesPerView={6}
       slidesPerGroup={5}
       navigate={true}
       speed={800}

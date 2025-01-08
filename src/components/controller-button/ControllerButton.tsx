@@ -3,7 +3,7 @@ export default function ControllerButton({ toggleController }: { toggleControlle
     <>
       <button
         onClick={toggleController}
-        className="fixed bottom-28 right-8 h-[72px] w-[72px] z-[5] rounded-full bg-white/60 shadow-lg transition-all hover:bg-white group"
+        className="fixed bottom-24 right-8 h-[60px] w-[60px] z-[5] rounded-full bg-white/60 shadow-lg transition-all hover:bg-white group"
         aria-label="카테고리 컨트롤러 보여주기"
       >
         <svg
@@ -12,14 +12,11 @@ export default function ControllerButton({ toggleController }: { toggleControlle
           viewBox="0 0 26 19"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="mx-auto transition-colors text-main-900 hover:text-point-500"
+          className="mx-auto transition-colors text-main-900"
         >
           <path
             d="M8.16667 0.5C7.33824 0.5 6.66667 1.17157 6.66667 2C6.66667 2.82843 7.33824 3.5 8.16667 3.5V0.5ZM23.5833 3.5C24.4118 3.5 25.0833 2.82843 25.0833 2C25.0833 1.17157 24.4118 0.5 23.5833 0.5V3.5ZM2 0.5C1.17157 0.5 0.5 1.17157 0.5 2C0.5 2.82843 1.17157 3.5 2 3.5V0.5ZM3.54167 3.5C4.37009 3.5 5.04167 2.82843 5.04167 2C5.04167 1.17157 4.37009 0.5 3.54167 0.5V3.5ZM2 8.20833C1.17157 8.20833 0.5 8.87991 0.5 9.70833C0.5 10.5368 1.17157 11.2083 2 11.2083V8.20833ZM3.54167 11.2083C4.37009 11.2083 5.04167 10.5368 5.04167 9.70833C5.04167 8.87991 4.37009 8.20833 3.54167 8.20833V11.2083ZM2 15.9167C1.17157 15.9167 0.5 16.5882 0.5 17.4167C0.5 18.2451 1.17157 18.9167 2 18.9167V15.9167ZM3.54167 18.9167C4.37009 18.9167 5.04167 18.2451 5.04167 17.4167C5.04167 16.5882 4.37009 15.9167 3.54167 15.9167V18.9167ZM8.16667 8.20833C7.33824 8.20833 6.66667 8.87991 6.66667 9.70833C6.66667 10.5368 7.33824 11.2083 8.16667 11.2083V8.20833ZM23.5833 11.2083C24.4118 11.2083 25.0833 10.5368 25.0833 9.70833C25.0833 8.87991 24.4118 8.20833 23.5833 8.20833V11.2083ZM8.16667 15.9167C7.33824 15.9167 6.66667 16.5882 6.66667 17.4167C6.66667 18.2451 7.33824 18.9167 8.16667 18.9167V15.9167ZM23.5833 18.9167C24.4118 18.9167 25.0833 18.2451 25.0833 17.4167C25.0833 16.5882 24.4118 15.9167 23.5833 15.9167V18.9167ZM8.16667 3.5H23.5833V0.5H8.16667V3.5ZM2 3.5H3.54167V0.5H2V3.5ZM2 11.2083H3.54167V8.20833H2V11.2083ZM2 18.9167H3.54167V15.9167H2V18.9167ZM8.16667 11.2083H23.5833V8.20833H8.16667V11.2083ZM8.16667 18.9167H23.5833V15.9167H8.16667V18.9167Z"
-            strokeWidth="2"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            fill="black"
           />
         </svg>
       </button>

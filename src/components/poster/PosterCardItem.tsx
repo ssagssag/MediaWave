@@ -35,7 +35,7 @@ export default function PosterCardItem({ item }: PosterCardItemProps) {
         {/* 이미지 */}
         <img
           className="object-cover object-center w-full h-full "
-          src={`${IMAGE_BASE_URL}original${item.backdrop_path}`}
+          src={`${IMAGE_BASE_URL}original${item.poster_path}`}
           alt={item.title}
         />
       </div>
