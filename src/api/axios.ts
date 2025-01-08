@@ -131,13 +131,24 @@ export const getMovieVideos = async (movieId: number) => {
   }
 };
 
-// api/axios.ts에 추가
+// 영화 - 출연진
 export const getMovieCast = async (movieId: number) => {
   try {
     const response = await axiosInstance.get(`/movie/${movieId}/credits`);
     return response.data.cast;
   } catch (error) {
     console.error("Failed to fetch cast:", error);
+    return [];
+  }
+};
+
+// 영화 - 유사 영화 20개
+export const getSimilarMovies = async (movieId: number) => {
+  try {
+    const response = await axiosInstance.get(`/movie/${movieId}/similar`);
+    return response.data.results.slice(0, 20);
+  } catch (error) {
+    console.error("유사 영화 가져오기 실패:", error);
     return [];
   }
 };
