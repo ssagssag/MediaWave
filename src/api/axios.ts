@@ -107,6 +107,17 @@ export const getMovieDetails = async (id: number): Promise<MovieItem> => {
   }
 };
 
+// 영화 - 트렌드
+export const getTrendingMovies = async () => {
+  try {
+    const response = await axiosInstance.get("/trending/movie/day");
+    return response.data.results.slice(0, 10); // 상위 10개만 가져오기
+  } catch (error) {
+    console.error("getTrendingMovies 에러 발생:", error);
+    return [];
+  }
+ };
+
 {
   /* TV Series */
 }
@@ -193,13 +204,20 @@ export const getTVGenres = async () => {
   }
 };
 
+
+{
+  /* search */
+}
+
 // 영화 검색
-export const searchMovie = async (query: string) => {
+export const searchMulti = async (query: string) => {
   if (!query) return [];
   try {
-    const response = await axiosInstance.get(`/search/movie`, {
+    const response = await axiosInstance.get(`/search/multi`, {
       params: {
         query,
+        include_adult: 'true', 
+        language: 'en-US'
       },
     });
     return response.data.results;
