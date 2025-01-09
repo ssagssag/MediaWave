@@ -1,91 +1,117 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { ClipLoader } from "react-spinners";
-import { getMovieDetails } from "../../api/axios";
+import { getMovieCast, getMovieDetails, getMovieVideos, getSimilarMovies } from "../../api/axios";
+import DetailButtons from "./components/DetailButtons";
+import TrailerSwiper from "./components/TrailerSwiper";
+import CastList from "./components/CastList";
+import SimilarMovies from "./components/SimilarMovies";
+import { CastMember } from "./components/CastList";
 
 export default function DetailMovie() {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState<MovieItem | null>(null);
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [cast, setCast] = useState<CastMember[]>([]);
+  const [similarMovies, setSimilarMovies] = useState<MovieItem[]>([]);
 
   useEffect(() => {
-    const fetchMovieDetails = async () => {
+    const fetchData = async () => {
       if (id) {
-        const movieId = parseInt(id);
-        const details = await getMovieDetails(movieId);
-        setMovieDetails(details);
+        try {
+          setLoading(true);
+          const [details, movieVideos, castData, similar] = await Promise.all([
+            getMovieDetails(parseInt(id)),
+            getMovieVideos(parseInt(id)),
+            getMovieCast(parseInt(id)),
+            getSimilarMovies(parseInt(id)),
+          ]);
+
+          setMovieDetails(details);
+          setVideos(movieVideos);
+          setCast(castData);
+          setSimilarMovies(similar);
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setLoading(false);
+        }
       }
     };
-    fetchMovieDetails();
+
+    fetchData();
   }, [id]);
 
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <ClipLoader color="#ffffff" size={50} />
+      </div>
+    );
+  }
+
   return (
-    <div className="relative flex items-center justify-center w-full h-screen">
-      {!movieDetails ? (
-        <div>
-          <ClipLoader color="#ffffff" size={50} />
-        </div>
-      ) : (
-        <>
-          <div className="absolute z-10 w-full h-full bg-black/50" />
+    <div className="fixed top-0 left-0 w-screen h-screen">
+      <article className="relative w-full h-full overflow-scroll">
+        <section className="relative w-full h-full">
+          {/* 왼쪽 그라디언트 */}
           <div
-            className={`
-        absolute z-0
-        w-full h-screen bg-cover bg-center
-        `}
+            className="absolute z-10 w-full h-full bg-gradient-to-r from-[#1E1E1E] from-0% via-[#1E1E1E] via-62% to-transparent to-100%"
+            aria-label="background-gradient"
+          />
+
+          {/* 포스터 이미지 배경 */}
+          <div
+            className="absolute top-0 right-0 z-0 w-1/2 h-full bg-cover"
             style={{
-              filter: "blur(6px)",
-              backgroundImage: `url(https://image.tmdb.org/t/p/original${movieDetails.poster_path})`,
+              backgroundImage: `url(https://image.tmdb.org/t/p/original${movieDetails?.poster_path})`,
             }}
-          ></div>
+          />
+        </section>
 
-          {/* details */}
-          {/* details poster */}
-          <div className="absolute z-20 w-full h-full grid grid-cols-1 md:grid-cols-2 items-center text-white px-64 py-8">
-            <div className="flex justify-center">
-              <img
-                className={`rounded-3xl max-w-sm `}
-                src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`}
-                alt={movieDetails.title}
-              />
-            </div>
-
-            {/* details info */}
-            <div>
-              <h1
-                className={`
-            text-white font-title mb-40 leading-tight text-clamp
-            `}
-              >
-                {movieDetails.title}
-              </h1>
-              <p>{movieDetails.video}</p>
-
-              <p
-                className={`
-            font-pretendard
-            text-[20px] sm:text-[9px] md:text-[10px] lg:text-[15px] xl:text-[20px]
-            mb-5
-          `}
-              >
-                {movieDetails.release_date} | ⭐ {Math.round(movieDetails.vote_average)} / 10
-              </p>
-
-              <p
-                className={`
-            text-white font-pretendard
-            w-[450px] max-h-[9em] overflow-y-auto scrollbar-hide
-            `}
-              >
-                {movieDetails.overview}
-              </p>
-
-              <div className="bg-slate-100/10 rounded-3xl pr-2 w-28 h-6 mt-8 flex items-center justify-center ">
-                <p className="text-white font-pretendard text-xs">↗ {movieDetails.popularity}</p>
-              </div>
-            </div>
+        {/* 컨텐츠 영역 */}
+        <section className="absolute top-0 left-0 z-20 w-full h-full pt-80 ">
+          {/* 상단 컨텐츠 */}
+          <div aria-label="contents" className="max-w-[1520px] mx-auto">
+            <ul className="flex gap-2 mb-4 max-w-[1520px]">
+              {movieDetails?.genres?.map((genre) => (
+                <li key={genre.id} className="px-4 py-1 mb-1 text-sm rounded-full text-main-400 bg-white/70">
+                  {genre.name}
+                </li>
+              ))}
+            </ul>
+            <h1 className="mb-6 leading-tight text-white text-banner-title">{movieDetails?.title}</h1>
+            <p className="w-[450px] max-h-[9em] overflow-y-auto scrollbar-hide text-white font-pretendard">
+              {movieDetails?.overview}
+            </p>
           </div>
-        </>
-      )}
+
+          {/* 하단 컨텐츠 */}
+          <section className="relative mt-16 h-full bg-gradient-to-t from-[#1E1E1E] via-[#1E1E1E] via-65% to-transparent">
+          <figure className="p-8 relative z-10 w-full max-w-[1520px] mx-auto">
+              <div className="flex justify-end mb-8 max-w-[1520px] mx-auto">
+                <DetailButtons
+                  movieId={movieDetails?.id ?? 0}
+                  onFavoriteClick={() => console.log("Favorite")}
+                  onReviewClick={() => console.log("Review")}
+                  onCommentClick={() => console.log("Comment")}
+                  onShareClick={() => console.log("Share")}
+                />
+              </div>
+              {videos.length > 0 && (
+                <div className="flex justify-end mb-8 max-w-[1520px] mx-auto mt-8">
+                  <TrailerSwiper videos={videos} />
+                </div>
+              )}
+            </figure>
+            <CastList cast={cast} />
+            {similarMovies.length > 0 && <SimilarMovies movies={similarMovies} />}
+            <h2 className="text-white text-title-md">리뷰 남기기</h2>
+            <textarea placeholder="타자를 두들길 준비 되셨나요? (｡･∀･)ﾉﾞ" className="w-full min-h-10 rounded-2xl bg-[#F3F2F3]/10"></textarea>
+          </section>
+        </section>
+      </article>
     </div>
   );
 }

@@ -50,6 +50,9 @@ export default {
         "info-base": ["1rem", { lineHeight: "auto", fontWeight: "500" }], // 16px
         "info-sm": ["0.875rem", { lineHeight: "auto", fontWeight: "500" }], // 14px
         "input-base": ["1rem", { lineHeight: "auto", fontWeight: "600" }], // 16px
+
+        clamp: "clamp(30px, 4vw, 50px)",
+
       },
       boxShadow: {
         default: "0px 8px 18px 0px rgba(168, 178, 198, 0.45)",
@@ -84,9 +87,6 @@ export default {
           900: "#060606",
         },
         background: "#1E1E1E",
-      },
-      fontSize: {
-        clamp: "clamp(30px, 4vw, 50px)",
       },
       // 스켈레톤
       animation: {
