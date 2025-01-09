@@ -6,13 +6,14 @@ import recommend from "../../../assets/categoryController/recommend.svg";
 import nowplaying from "../../../assets/categoryController/nowplaying.svg";
 import myfavorites from "../../../assets/categoryController/myfavorites.svg";
 import mylists from "../../../assets/categoryController/mylists.svg";
+import { useState } from "react";
 
 interface CategoryControllerProps {
   scrollToCategory: (category: string) => void;
 }
 
 export default function CategoryController({ scrollToCategory }: CategoryControllerProps) {
-  const svgs = [popular, upcoming, toprated, trending, recommend, nowplaying, myfavorites, mylists];
+  const svgs = [popular, upcoming, toprated, trending, nowplaying, myfavorites, mylists, recommend];
 
   const categoryLists = [
     { name: "Popular", key: "popular" },
@@ -22,26 +23,31 @@ export default function CategoryController({ scrollToCategory }: CategoryControl
     { name: "Now Playing", key: "now_playing" },
     { name: "My Favorites", key: "my_favorites" },
     { name: "My Lists", key: "my_lists" },
+    { name: "Recommend", key: "recommend" },
   ];
 
   return (
     <div
       className={`
-          w-full h-full bg-main-500 p-6 rounded-2xl 
-          shadow-md backdrop-blur-md border-2 border-white/50 `}
+        fixed bottom-44 right-8 z-[5]
+        w-[220px] h-[500px] overflow-hidden p-6 rounded-2xl
+        shadow-md backdrop-blur-md border-2 border-white
+      `}
     >
-      <div className="flex flex-col justify-center items-start gap-11 h-full ">
+      <div className="flex flex-col justify-center items-center gap-9 h-full">
         {categoryLists.map((item, index) => (
-          <div className="cursor-pointer " key={index} onClick={() => scrollToCategory(item.key)}>
-            <div className="flex items-center gap-2 ">
-              {/* 아이콘 */}
-              <img src={svgs[index]} alt={item.name} />
-
-              {/* category */}
-              <h3 className=" font-pretendard text-white  flex flex-row items-center gap-2 text-base font-semibold">
-                {item.name}
-              </h3>
+          <div
+            className="cursor-pointer flex items-center pl-[22px]  w-full"
+            key={index}
+            onClick={() => scrollToCategory(item.key)}
+          >
+            {/* 아이콘 */}
+            <div className="flex-shrink-0">
+              <img src={svgs[index]} alt={item.name} className="w-5 h-5" />
             </div>
+
+            {/* category */}
+            <h3 className="font-pretendard text-white text-base font-semibold ml-3">{item.name}</h3>
           </div>
         ))}
       </div>

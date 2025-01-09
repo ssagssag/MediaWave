@@ -19,7 +19,7 @@ export default function RootLayout() {
 
   return (
     <div className="relative flex flex-col items-center w-full min-h-screen bg-background">
-      <header className="fixed top-0 left-0 z-40 w-full backdrop-blur-lg">
+      <header className="fixed top-0 left-0 z-50 w-full backdrop-blur-md">
         <div className="mx-auto max-w-[1520px] px-10 py-5">
           <Nav onTabChange={setActiveTab} activeTab={activeTab} />
         </div>

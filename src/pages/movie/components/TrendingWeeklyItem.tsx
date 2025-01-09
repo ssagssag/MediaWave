@@ -33,11 +33,11 @@ export default function TrendingWeeklyItem({ movie }: RecommendProps) {
 
   return (
     <Link to={`/movie/${movie.id}`}>
-      <div className="w-full h-[600px] rounded-3xl relative overflow-hidden ">
+      <div className="w-full h-full  relative overflow-hidden ">
         {/* 그라데이션 오버레이 */}
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-[#000000] via-[#1E1E1E]/30 to-transparent z-10" />
         {/* 영화 정보 */}
-        <div className="absolute z-20 text-[#ffffff] font-noto bottom-[60px]">
+        <div className="absolute z-20 top-[200px] text-[#ffffff] font-noto ">
           {/* 영화 장르 */}
           <div className="flex flex-row items-center gap-2 ml-10 text-base font-semibold">
             <p className="bg-black/60 px-4 py-1 rounded-full">{firstGenre}</p>
@@ -65,7 +65,7 @@ export default function TrendingWeeklyItem({ movie }: RecommendProps) {
 
         {/* 영화 스틸이미지 */}
         <img
-          className="w-full h-full rounded-3xl object-cover"
+          className="w-full h-full object-cover"
           src={`${IMAGE_BASE_URL}/original/${backdropPath}`}
           alt={movie.title}
         />
