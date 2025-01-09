@@ -16,13 +16,16 @@ export default function Movie() {
     my_favorites: useRef<HTMLDivElement | null>(null),
     my_lists: useRef<HTMLDivElement | null>(null),
     recommend: useRef<HTMLDivElement | null>(null),
-
-    korea_movie: useRef<HTMLDivElement | null>(null),
-    classic_movie: useRef<HTMLDivElement | null>(null),
-    harrypotter_movie: useRef<HTMLDivElement | null>(null),
-    christmas_movie: useRef<HTMLDivElement | null>(null),
   };
   const [showController, SetShowController] = useState(false);
+
+  const keywords = ["#한국", "#스포츠", "#힐링", "#중세"]; // 키워드 배열
+  const endpoints = [
+    "/discover/movie?sort_by=vote_count.desc&with_original_language=ko&region=KR",
+    "/discover/movie?sort_by=popularity.desc&with_keywords=6075",
+    "/discover/movie?sort_by=popularity.desc&with_keywords=167696",
+    "/discover/movie?sort_by=vote_count.desc&with_keywords=161257",
+  ];
 
   const toggleController = () => {
     SetShowController(!showController);
@@ -63,42 +66,13 @@ export default function Movie() {
           ref={categoryRefs.now_playing}
         />
         <Category
-          title="My Favorites"
+          title="My Favorites(Fix)"
           endpoint="/movie/now_playing"
           category="my_favorites"
           ref={categoryRefs.my_favorites}
         />
-        <Category title="My Lists" endpoint="/movie/now_playing" category="my_lists" ref={categoryRefs.my_lists} />
-        <Recommend
-          title="Recommend"
-          endpoint="/discover/movie?sort_by=vote_count.desc&with_original_language=ko&region=KR"
-          ref={categoryRefs.recommend}
-        />
-
-        {/* <Category
-          title="#한국"
-          endpoint="/discover/movie?sort_by=vote_count.desc&with_original_language=ko"
-          category="korea_movie"
-          ref={categoryRefs.korea_movie}
-        />
-        <Category
-          title="#고전"
-          endpoint="/discover/movie?sort_by=vote_count.desc&primary_release_date.lte=2000-01-01"
-          category="classic_movie"
-          ref={categoryRefs.classic_movie}
-        />
-        <Category
-          title="#해리포터 시리즈"
-          endpoint="/search/movie?query=Harry+Potter"
-          category="harrypotter_movie"
-          ref={categoryRefs.harrypotter_movie}
-        />
-        <Category
-          title="#크리스마스"
-          endpoint="/discover/movie?with_keywords=207317&sort_by=popularity.desc"
-          category="christmas_movie"
-          ref={categoryRefs.christmas_movie}
-        /> */}
+        <Category title="My Lists(Fix)" endpoint="/movie/now_playing" category="my_lists" ref={categoryRefs.my_lists} />
+        <Recommend title="Recommend" ref={categoryRefs.recommend} keywords={keywords} endpoints={endpoints} />
       </div>
 
       {/* 카테고리 토글 버튼 */}
