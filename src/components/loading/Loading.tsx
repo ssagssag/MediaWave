@@ -2,14 +2,12 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 export const LoadingPage = () => {
   return (
-    <article className="w-screen h-screen relative bg-black">
-      <DotLottieReact
-        src="https://lottie.host/58782986-335d-41b8-b4ec-0db6ee2e2417/rZmSy1WLLv.lottie"
-        loop
-        autoplay
-        className="w-[1000px] absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
-      />
-    </article>
+    <DotLottieReact
+      src="https://lottie.host/7bef7629-5ff4-4242-9248-a64ca0089084/5ygkuQp5sQ.lottie"
+      loop
+      autoplay
+      className="w-[800px] absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
+    />
   );
 };
 
@@ -26,12 +24,12 @@ export const LoadingPage = () => {
 {
   // 2. 영화 상영기 확대,축소
   //   https://app.lottiefiles.com/animation/4d447ed6-799b-444f-acf0-ebb5915212f4?channel=web&source=public-animation&panel=embed
-  //   <DotLottieReact
-  //     src="https://lottie.host/7bef7629-5ff4-4242-9248-a64ca0089084/5ygkuQp5sQ.lottie"
-  //     loop
-  //     autoplay
-  //     className="w-[800px] absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
-  //   />;
+  // <DotLottieReact
+  //   src="https://lottie.host/7bef7629-5ff4-4242-9248-a64ca0089084/5ygkuQp5sQ.lottie"
+  //   loop
+  //   autoplay
+  //   className="w-[800px] absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
+  // />
 }
 {
   // 3. 영화 슬레이트
