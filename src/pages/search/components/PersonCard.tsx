@@ -2,7 +2,7 @@ import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import PersonCardItem from "./PersonCardItem";
 
-export default function PersonCard({ person, unique }: PersonProps) {
+export default function PersonCard({ person, unique, onPersonClick }: PersonProps) {
   
 
 
@@ -23,17 +23,17 @@ export default function PersonCard({ person, unique }: PersonProps) {
         >
           {person.map((item, index) => (
             <SwiperSlide key={index}>
-              <PersonCardItem item={item} />
+              <PersonCardItem item={item} onClick={onPersonClick} />
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className={`swiper-button-prev prev-${unique} cursor-pointer opacity-10 hover:opacity-100 transition-opacity duration-300 left-[-40px]`}></div>
-        <div className={`swiper-button-next next-${unique} cursor-pointer opacity-10 hover:opacity-100 transition-opacity duration-300 right-[-40px]`}></div>
+        <div className={`swiper-button-prev prev-${unique} cursor-pointer opacity-10 hover:opacity-100 transition-opacity duration-300 left-[-70px]`}></div>
+        <div className={`swiper-button-next next-${unique} cursor-pointer opacity-10 hover:opacity-100 transition-opacity duration-300 right-[-70px]`}></div>
         </div>
       ) : (
         <div className="flex flex-row flex-wrap gap-4 justify-center">
           {person.map((item) => (
-            <PersonCardItem key={item.id} item={item} />
+            <PersonCardItem key={item.id} item={item} onClick={() => onPersonClick(item)} />
           ))}
         </div>
       )}

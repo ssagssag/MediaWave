@@ -45,6 +45,7 @@ interface PersonResult extends BaseResult {
 interface PersonProps {
   person: PersonResult[];
   unique: string;
+  onPersonClick: (personData: PersonResult) => void;
 }
 
 interface PersonCardProps {
@@ -53,4 +54,6 @@ interface PersonCardProps {
 
 interface PersonCardItemProps {
   item: PersonResult;
+  
+  onClick: (item: PersonResult) => void;
 }

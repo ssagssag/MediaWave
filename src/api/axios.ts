@@ -216,7 +216,7 @@ export const searchMulti = async (query: string) => {
     const response = await axiosInstance.get(`/search/multi`, {
       params: {
         query,
-        include_adult: 'true', 
+        include_adult: 'false', 
         language: 'en-US'
       },
     });

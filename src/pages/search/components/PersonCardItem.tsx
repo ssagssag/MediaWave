@@ -1,7 +1,7 @@
 import { IMAGE_BASE_URL } from "../../../constants/urls";
 import getPersonImg from "../../../utils/getPersonImg";
 
-export default function PersonCardItem({ item }: PersonCardItemProps) {
+export default function PersonCardItem({ item, onClick }: PersonCardItemProps) {
   const defaultPersonImg = getPersonImg();
 
   const nameParts = item.name.length > 10 ? item.name.split(" ") : [item.name];
@@ -9,7 +9,7 @@ export default function PersonCardItem({ item }: PersonCardItemProps) {
   const lastName = nameParts.slice(1).join(" ")
 
   return (
-    <div className="flex flex-col items-center">
+    <div onClick={() => onClick(item)} className="flex flex-col items-center cursor-pointer">
       {/* 인물 프로필 이미지 */}
       <div className="rounded-full bg-main-400 w-20 h-20 overflow-hidden">
         {item.profile_path ? (
@@ -26,7 +26,6 @@ export default function PersonCardItem({ item }: PersonCardItemProps) {
       <div className="flex flex-col items-center leading-tight mt-3">
         <p className="font-sans text-center text-white">{firstName}</p>
         {lastName && <p className="font-sans text-center text-white">{lastName}</p>}
-      
       </div>
     </div>
   );
