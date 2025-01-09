@@ -2,7 +2,7 @@
 @import "./swiper.css";
 @import "./tailwind.css";
 
-html, body {
-  background-color: #1E1E1E;
-  overflow-x: hidden;
+html,
+body {
+  background-color: #1e1e1e;
 }

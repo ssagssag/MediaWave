@@ -1,4 +1,4 @@
-export default function PersonalDetailModalSkeleton() {
+export default function PersonDetailModalSkeleton() {
   return (
     <article className="flex flex-col gap-[60px]">
       {/* 상단 */}
@@ -16,7 +16,7 @@ export default function PersonalDetailModalSkeleton() {
       {/* 컨텐츠 */}
       <article className="flex flex-col gap-[50px]">
         <article className="flex flex-col gap-[20px]">
-          <h2 className="text-[20px] text-white font-bold">출연 작품</h2>
+          <h2 className="text-[20px] w-[100px] h-[30px] rounded-3xl skeleton"></h2>
           <article className="flex justify-between">
             <article className="w-[150px] h-[220px] max-h-[220px] rounded-3xl skeleton"></article>
             <article className="w-[150px] h-[220px] max-h-[220px] rounded-3xl skeleton"></article>
@@ -26,7 +26,7 @@ export default function PersonalDetailModalSkeleton() {
           </article>
         </article>
         <article className="flex flex-col gap-[20px]">
-          <h2 className="text-[20px] text-white font-bold">연출 작품</h2>
+          <h2 className="text-[20px] w-[100px] h-[30px] rounded-3xl skeleton"></h2>
           <article className="flex justify-between">
             <article className="w-[150px] h-[220px] max-h-[220px] rounded-3xl skeleton"></article>
             <article className="w-[150px] h-[220px] max-h-[220px] rounded-3xl skeleton"></article>
