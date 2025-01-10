@@ -67,11 +67,11 @@ export default function DetailButtons({
           <img
             src={`/src/assets/detailPage/${button.icon}`}
             alt={button.label}
-            className={`w-6 h-6 ${
+            className={`w-8 h-8 ${
               button.id === 'favorite' && isFavorite ? 'filter brightness-0 invert' : ''
             }`}
           />
-          <span className="text-sm text-white font-pretendard">{button.label}</span>
+          <span className="text-white text-info-sm font-pretendard">{button.label}</span>
         </button>
       ))}
     </div>
