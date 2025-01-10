@@ -24,13 +24,14 @@ export default function TrendingWeekly() {
       <BaseSwiper
         data={top10}
         renderItem={(movie) => <TrendingWeeklyItem movie={movie} />}
-        autoplay={true}
+        autoplay={false}
         delay={3000}
         loop={true}
         unique="weeklytrend"
         slidesPerView={1}
         slidesPerGroup={1}
         speed={500}
+        navigate={false}
       />
     </>
   );
