@@ -3,12 +3,19 @@ import { IMAGE_BASE_URL } from "../../../constants/urls";
 import getPersonImg from "../../../utils/getPersonImg";
 
 export default function PersonCardItem({ item, onClick, focusedPerson }: PersonCardItemProps) {
-  const defaultPersonImg = getPersonImg();
   const [animationClass, setAnimationClass] = useState("opacity-0");
+  const [personImg, setPersonImg] = useState<string | null>(null); 
 
   const nameParts = item.name.length > 10 ? item.name.split(" ") : [item.name];
   const firstName = nameParts[0];
   const lastName = nameParts.slice(1).join(" ")
+
+
+  useEffect(() => {
+    if (!personImg) {
+      setPersonImg(getPersonImg());
+    }
+  }, [personImg]);
 
   useEffect(() => {
     if(focusedPerson?.id === item.id){
@@ -29,7 +36,7 @@ export default function PersonCardItem({ item, onClick, focusedPerson }: PersonC
             src={`${IMAGE_BASE_URL}/t/p/w185/${item.profile_path}`}
           />
         ) : (
-          defaultPersonImg
+          personImg
         )}
       </div>
       {/* 인물 프로필 정보 */}
