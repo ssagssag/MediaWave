@@ -23,7 +23,7 @@ export default function TrailerSwiper({ videos }: TrailerSwiperProps) {
       <Swiper modules={[Navigation]} navigation loop slidesPerView={3} spaceBetween={20} className="w-full">
         {videos.map((video) => (
           <SwiperSlide key={video.key}>
-            <div className="relative overflow-hidden rounded-xl aspect-video">
+            <div className="relative overflow-hidden rounded-2xl aspect-video">
               {activeVideo === video.key ? (
                 <iframe
                   src={`https://www.youtube.com/embed/${video.key}?autoplay=1`}
