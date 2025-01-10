@@ -27,8 +27,8 @@ export default function PersonCard({ person, unique, onPersonClick }: PersonProp
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className={`swiper-button-prev prev-${unique} cursor-pointer opacity-10 hover:opacity-100 transition-opacity duration-300 left-[-70px]`}></div>
-        <div className={`swiper-button-next next-${unique} cursor-pointer opacity-10 hover:opacity-100 transition-opacity duration-300 right-[-70px]`}></div>
+        <div className={`swiper-button-prev prev-${unique} cursor-pointer opacity-10 hover:opacity-100 transition-opacity duration-300 left-[-100px]`}></div>
+        <div className={`swiper-button-next next-${unique} cursor-pointer opacity-10 hover:opacity-100 transition-opacity duration-300 right-[-100px]`}></div>
         </div>
       ) : (
         <div className="flex flex-row flex-wrap gap-4 justify-center">

@@ -53,7 +53,7 @@ export default function Search() {
   };
 
   return (
-    <div className="relative flex flex-col items-center w-full h-auto min-h-screen bg-background">
+    <div className="relative flex flex-col items-center w-full h-auto min-h-screen bg-background overflow-x-hidden">
       <header className={`flex flex-col items-center mt-32`}>
         {/* Logo + SearchBar */}
         <Link to={"/"}>
@@ -61,7 +61,7 @@ export default function Search() {
         </Link>
         <SearchBar searchQuery={searchQuery} onSearch={handleSearch} />
       </header>
-      <main className="mt-14 mb-40 flex flex-col items-center gap-10">
+      <main className="mt-14 mb-40 flex flex-col items-center gap-10 w-full overflow-x-hidden">
         {/* 인물 카드 리스트 */}
         {person.length > 0 && <PersonCard person={person} unique="person-swiper" onPersonClick={handlePersonClick} />}
 

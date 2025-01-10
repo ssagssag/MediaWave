@@ -11,7 +11,7 @@ export default function PersonCardItem({ item, onClick }: PersonCardItemProps) {
   return (
     <div onClick={() => onClick(item)} className="flex flex-col items-center cursor-pointer">
       {/* 인물 프로필 이미지 */}
-      <div className="rounded-full bg-main-400 w-20 h-20 overflow-hidden">
+      <div className="rounded-full bg-main-400 w-16 h-16 sm:w-20 sm:h-20 overflow-hidden">
         {item.profile_path ? (
           <img
             className="rounded-full w-full h-full object-cover object-center"
