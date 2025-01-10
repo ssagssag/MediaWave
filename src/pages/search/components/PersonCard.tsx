@@ -2,15 +2,16 @@ import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import PersonCardItem from "./PersonCardItem";
 
-export default function PersonCard({ person, unique, onPersonClick }: PersonProps) {
+export default function PersonCard({ person, unique, onPersonClick, focusedPerson }: PersonProps) {
   
 
 
   return (
-    <div className="flex flex-row items-center justify-center gap-10 max-w-3xl">
+    <div className="flex flex-row items-center justify-center gap-8 max-w-4xl px-12">
+      
       {/* 스와이퍼 적용 */}
       {person.length >= 7 ? (
-      <div className="swiper-container ">
+      <div className="swiper-container">
         <Swiper
           modules={[Navigation]}
           loop={false}
@@ -23,7 +24,11 @@ export default function PersonCard({ person, unique, onPersonClick }: PersonProp
         >
           {person.map((item, index) => (
             <SwiperSlide key={index}>
-              <PersonCardItem item={item} onClick={onPersonClick} />
+              <PersonCardItem 
+                item={item} 
+                onClick={onPersonClick}
+                focusedPerson={focusedPerson}
+              />
             </SwiperSlide>
           ))}
         </Swiper>

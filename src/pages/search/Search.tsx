@@ -22,11 +22,8 @@ export default function Search() {
 
       const sortedPerson = data
         .filter((item: PersonResult) => {
-          return (
-            item.media_type === "person" && 
-            item.known_for.some((media) => media.poster_path)
-          );
-      })
+          return item.media_type === "person" && item.known_for.some((media) => media.poster_path);
+        })
         .sort((a: PersonResult, b: PersonResult) => {
           if (a.profile_path && !b.profile_path) return -1;
           if (!a.profile_path && b.profile_path) return 1;
@@ -61,15 +58,27 @@ export default function Search() {
         </Link>
         <SearchBar searchQuery={searchQuery} onSearch={handleSearch} />
       </header>
-      <main className="mt-14 mb-40 flex flex-col items-center gap-10 w-full overflow-x-hidden">
+      <main className="mt-8 mb-40 flex flex-col items-center gap-4 w-full overflow-x-hidden">
         {/* 인물 카드 리스트 */}
-        {person.length > 0 && <PersonCard person={person} unique="person-swiper" onPersonClick={handlePersonClick} />}
+        {person.length > 0 && (
+          <PersonCard
+            person={person}
+            unique="person-swiper"
+            focusedPerson={focusedPerson}
+            onPersonClick={handlePersonClick}
+          />
+        )}
 
         {/* media 카드 리스트 */}
         {isFocused && focusedPerson ? (
           <div className="flex flex-col items-center">
             {/* 인물 검색 -> 미디어 검색으로 돌아가기 */}
-            <button onClick={handleBackToMedia} className="bg-main-400 text-white px-3 py-1 rounded-full opacity-20 hover:opacity-85 mb-10"> Back to Media </button>
+            <button
+              onClick={handleBackToMedia}
+              className="bg-main-400 text-white px-3 py-1 rounded-full opacity-20 hover:opacity-85 mb-10"
+            >
+              Back to Media
+            </button>
             <MediaCard media={focusedPerson.known_for} />
           </div>
         ) : (
