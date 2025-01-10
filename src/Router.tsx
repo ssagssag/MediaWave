@@ -26,11 +26,11 @@ export default function Router() {
         <Route path="/login" element={<Login />} />
         <Route path="/animation" element={<Animation />} />
         <Route path="/genre" element={<Genre />} />
-        <Route path="/details/tv/:id" element={<DetailTv />} />
+        <Route path="/tv/:id" element={<DetailTv />} />
         {/* <Route path="/details/movie/:id" element={<DetailMovie />} /> */}
         <Route path="/movie/:id" element={<DetailMovie />} />
       </Route>
-      
+
       <Route path="/search" element={<Search />} />
       <Route path="/movie/:id" element={<DetailMovie />} />
 
