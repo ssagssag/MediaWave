@@ -7,6 +7,8 @@ import TrailerSwiper from "./components/TrailerSwiper";
 import CastList from "./components/CastList";
 import SimilarMovies from "./components/SimilarMovies";
 import { CastMember } from "./components/CastList";
+import DetailComment from "./components/DetailComment";
+import createComment from "../../assets/detailPage/paper-plane.svg";
 
 export default function DetailMovie() {
   const { id } = useParams();
@@ -31,8 +33,8 @@ export default function DetailMovie() {
           setMovieDetails(details);
           setVideos(movieVideos);
           setCast(castData);
-          const filteredSimilarMovies = similar.filter((movie : any) => movie.poster_path);
-        setSimilarMovies(filteredSimilarMovies);
+          const filteredSimilarMovies = similar.filter((movie: any) => movie.poster_path);
+          setSimilarMovies(filteredSimilarMovies);
         } catch (error) {
           console.error(error);
         } finally {
@@ -90,7 +92,7 @@ export default function DetailMovie() {
 
           {/* 하단 컨텐츠 */}
           <section className="relative mt-16 h-full bg-gradient-to-t from-[#1E1E1E] via-[#1E1E1E] via-65% to-transparent">
-            <figure className="p-8 relative z-10 w-full max-w-[1520px] mx-auto">
+            <figure className="max-[1519px]:p-8 relative z-10 w-full max-w-[1520px] mx-auto">
               <div className="flex justify-end mb-8 max-w-[1520px] mx-auto">
                 <DetailButtons
                   movieId={movieDetails?.id ?? 0}
@@ -106,13 +108,25 @@ export default function DetailMovie() {
                 </div>
               )}
             </figure>
-            {cast.length > 0 && <CastList cast={cast} />}
+            {cast.length > 0 && <CastList cast={cast} hasVideos={videos.length > 0} />}
             {similarMovies.length > 0 && <SimilarMovies movies={similarMovies} />}
-            <h2 className="text-white text-title-md">리뷰 남기기</h2>
-            <textarea
-              placeholder="타자를 두들길 준비 되셨나요? (｡･∀･)ﾉﾞ"
-              className="w-full max-w-[1520px] mx-auto min-h-10 rounded-2xl bg-[#F3F2F3]/10"
-            ></textarea>
+
+            {/* 댓글 작성 */}
+            <form className="w-full max-w-[1520px] mx-auto max-[1519px]:p-8">
+              <h2 className="pt-12 pb-6 text-white text-title-md">리뷰 남기기</h2>
+              <div className="relative">
+                <textarea
+                  placeholder="타자를 두들길 준비 되셨나요? (｡･∀･)ﾉﾞ"
+                  className="w-full min-h-40 rounded-2xl bg-[#F3F2F3]/10 p-4 text-white resize-none"
+                />
+                <button className="absolute transition-transform bottom-4 right-4 hover:scale-110">
+                  <img src={createComment} alt="댓글 작성" />
+                </button>
+              </div>
+            </form>
+
+            {/* 댓글 목록 */}
+            <DetailComment />
           </section>
         </section>
       </article>
