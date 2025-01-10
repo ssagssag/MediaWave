@@ -31,7 +31,8 @@ export default function DetailMovie() {
           setMovieDetails(details);
           setVideos(movieVideos);
           setCast(castData);
-          setSimilarMovies(similar);
+          const filteredSimilarMovies = similar.filter((movie : any) => movie.poster_path);
+        setSimilarMovies(filteredSimilarMovies);
         } catch (error) {
           console.error(error);
         } finally {
@@ -89,7 +90,7 @@ export default function DetailMovie() {
 
           {/* 하단 컨텐츠 */}
           <section className="relative mt-16 h-full bg-gradient-to-t from-[#1E1E1E] via-[#1E1E1E] via-65% to-transparent">
-          <figure className="p-8 relative z-10 w-full max-w-[1520px] mx-auto">
+            <figure className="p-8 relative z-10 w-full max-w-[1520px] mx-auto">
               <div className="flex justify-end mb-8 max-w-[1520px] mx-auto">
                 <DetailButtons
                   movieId={movieDetails?.id ?? 0}
@@ -105,10 +106,13 @@ export default function DetailMovie() {
                 </div>
               )}
             </figure>
-            <CastList cast={cast} />
+            {cast.length > 0 && <CastList cast={cast} />}
             {similarMovies.length > 0 && <SimilarMovies movies={similarMovies} />}
             <h2 className="text-white text-title-md">리뷰 남기기</h2>
-            <textarea placeholder="타자를 두들길 준비 되셨나요? (｡･∀･)ﾉﾞ" className="w-full min-h-10 rounded-2xl bg-[#F3F2F3]/10"></textarea>
+            <textarea
+              placeholder="타자를 두들길 준비 되셨나요? (｡･∀･)ﾉﾞ"
+              className="w-full max-w-[1520px] mx-auto min-h-10 rounded-2xl bg-[#F3F2F3]/10"
+            ></textarea>
           </section>
         </section>
       </article>

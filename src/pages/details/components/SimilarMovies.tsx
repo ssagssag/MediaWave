@@ -8,15 +8,15 @@ export default function SimilarMovies({ movies }: SimilarMoviesProps) {
   // 각 영화 카드 렌더링 함수
   const renderMovie = (movie: MovieItem) => (
     <div className="p-2">
-      <div className="relative overflow-hidden rounded-lg aspect-[2/3]">
+      <div className="relative overflow-hidden rounded-3xl aspect-[2/3]">
         <img
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
           className="object-cover w-full h-full transition-transform duration-300 hover:scale-110"
         />
       </div>
-      <h3 className="mt-2 text-lg font-semibold text-white truncate">{movie.title}</h3>
-      <p className="text-sm text-white/70">{new Date(movie.release_date).getFullYear()}</p>
+      <h3 className="mt-2 font-semibold text-white truncate text-info-lg">{movie.title}</h3>
+      <p className="text-info-base text-white/70">{new Date(movie.release_date).getFullYear()}</p>
     </div>
   );
 
