@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import Category from "./components/Category";
 import CategoryController from "./components/CategoryController";
-import TrendingWeekly from "./components/TrendingWeekly";
 import ControllerButton from "../../components/controller-button/ControllerButton";
 import Recommend from "./components/Recommend";
 import MovieSkeleton from "../../components/person-detail/components/skeleton/MovieSkeleton";
 import { axiosInstance } from "../../api/axios";
+import TrendingWeekly from "./components/TrendingWeekly";
 
 export default function Movie() {
   const [skeleton, setSkeleton] = useState(true); // 전체 로딩 상태

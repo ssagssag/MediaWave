@@ -3,12 +3,12 @@ import "swiper/swiper-bundle.css";
 import BaseSwiper from "../../../components/swiper/BaseSwiper";
 import TrendingWeeklyItem from "./TrendingWeeklyItem";
 
-export default function TrendingWeekly({ data }: { data: MovieItem[] }) {
+export default function TrendingWeekly({ data }: { data: TvItem[] }) {
   return (
     <>
       <BaseSwiper
         data={data}
-        renderItem={(data) => <TrendingWeeklyItem movie={data} />}
+        renderItem={(data) => <TrendingWeeklyItem data={data} />}
         autoplay={true}
         delay={3000}
         loop={true}
