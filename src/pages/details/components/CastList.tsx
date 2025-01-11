@@ -44,21 +44,21 @@ export default function CastList({ cast, hasVideos = true }: CastListProps) {
               className="object-cover w-full h-full"
             />
           ) : (
-            <div className="w-full h-full">{getPersonImg()}</div>
+            <img src={getPersonImg()} alt={member.name} className="object-cover w-full h-full" />
           )}
         </div>
         <p className="text-banner-text center text-main-100">{member.name}</p>
-        <p className="text-center text-gray-400 text-main-100/60 text-info-base">
-          {member.character}
-        </p>
+        <p className="text-center text-gray-400 text-main-100/60 text-info-base">{member.character}</p>
       </div>
     </div>
   );
 
   return (
-    <div className={`pt-28 max-w-[1520px] max-[1519px]:px-8 mx-auto ${
-      !hasVideos ? 'bg-gradient-to-t from-[#1E1E1E] via-[#1E1E1E]/10 via-5% to-transparent' : 'bg-background'
-    }`}>
+    <div
+      className={`pt-28 max-w-[1520px] max-[1519px]:px-8 mx-auto ${
+        !hasVideos ? "bg-gradient-to-t from-[#1E1E1E] via-[#1E1E1E]/10 via-5% to-transparent" : "bg-background"
+      }`}
+    >
       <h2 className="mb-6 text-white text-title-md">출연진 / 감독</h2>
       <div className="group">
         <BaseSwiper
