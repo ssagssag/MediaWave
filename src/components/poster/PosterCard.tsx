@@ -1,11 +1,16 @@
 import PosterCardItem from "./PosterCardItem";
 import BaseSwiper from "../swiper/BaseSwiper";
 
-export default function PosterCard({ cards, unique }: PosterCardProps) {
+interface PosterCardProps<T extends MovieItem | TvItem> {
+  cards: T[];
+  unique: string;
+}
+
+export default function PosterCard<T extends MovieItem | TvItem>({ cards, unique }: PosterCardProps<T>) {
   return (
     <BaseSwiper
       data={cards}
-      renderItem={(item) => <PosterCardItem item={item} key={item.id} />}
+      renderItem={(item) => <PosterCardItem item={item} key={(item as any).id} />}
       autoplay={false}
       loop={false}
       unique={unique}
