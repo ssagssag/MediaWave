@@ -35,7 +35,15 @@ export default function TrendingWeeklyItem({ movie }: RecommendProps) {
     <Link to={`/movie/${movie.id}`}>
       <div className="w-full h-full  relative overflow-hidden ">
         {/* 그라데이션 오버레이 */}
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-[#000000] via-[#1E1E1E]/30 to-transparent z-10" />
+
+        <div
+          style={{
+            background: `linear-gradient(to top, rgba(30, 30, 30, 1) 5%, transparent),
+                       linear-gradient(to right, rgba(30, 30, 30, 0.7) 25%, transparent)`,
+          }}
+          className="absolute top-0 left-0 w-full h-full   z-10
+       "
+        />
         {/* 영화 정보 */}
         <div className="absolute z-20 top-[200px] text-[#ffffff] font-noto ">
           {/* 영화 장르 */}
