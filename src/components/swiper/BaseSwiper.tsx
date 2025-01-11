@@ -27,7 +27,7 @@ export default function BaseSwiper<T>({
   navigate,
 }: SwiperComponentProps<T>) {
   return (
-    <div className="swiper-container h-full relative flex items-center">
+    <div className="swiper-container h-full  relative flex items-center">
       {navigate && <div className={`swiper-button-prev prev-${unique} `}></div>}
       <Swiper
         className="h-full"

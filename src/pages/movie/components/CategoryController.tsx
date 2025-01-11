@@ -6,7 +6,6 @@ import recommend from "../../../assets/categoryController/recommend.svg";
 import nowplaying from "../../../assets/categoryController/nowplaying.svg";
 import myfavorites from "../../../assets/categoryController/myfavorites.svg";
 import mylists from "../../../assets/categoryController/mylists.svg";
-import { useState } from "react";
 
 interface CategoryControllerProps {
   scrollToCategory: (category: string) => void;
@@ -30,7 +29,7 @@ export default function CategoryController({ scrollToCategory }: CategoryControl
     <div
       className={`
         fixed bottom-44 right-8 z-[5]
-        w-[220px] h-[500px] overflow-hidden p-6 rounded-2xl
+        w-[220px] h-[480px] overflow-hidden p-6 rounded-2xl
         shadow-md backdrop-blur-md border-2 border-white
       `}
     >
