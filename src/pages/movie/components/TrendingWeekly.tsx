@@ -1,30 +1,15 @@
 import "swiper/swiper-bundle.css";
 
-import { axiosInstance } from "../../../api/axios";
-import { useEffect, useState } from "react";
 import BaseSwiper from "../../../components/swiper/BaseSwiper";
 import TrendingWeeklyItem from "./TrendingWeeklyItem";
 
-export default function TrendingWeekly() {
-  const [top10, setTop10] = useState<MovieItem[]>([]);
-
-  const getTop10 = async () => {
-    const {
-      data: { results },
-    } = await axiosInstance.get("/trending/movie/week");
-    setTop10(results.slice(0, 10));
-  };
-
-  useEffect(() => {
-    getTop10();
-  }, []);
-
+export default function TrendingWeekly({ data }: { data: MovieItem[] }) {
   return (
     <>
       <BaseSwiper
-        data={top10}
+        data={data}
         renderItem={(movie) => <TrendingWeeklyItem movie={movie} />}
-        autoplay={false}
+        autoplay={true}
         delay={3000}
         loop={true}
         unique="weeklytrend"

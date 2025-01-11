@@ -4,14 +4,14 @@ import { forwardRef, useEffect, useRef, useState } from "react";
 import { axiosInstance } from "../../../api/axios";
 import { Link } from "react-router";
 import { IMAGE_BASE_URL } from "../../../constants/urls";
+import InfiniteScrollSkeleton from "../../../components/person-detail/components/skeleton/InfiniteScrollSkeleton";
 
-const Recommend2 = forwardRef<HTMLDivElement, { title: string; keywords: string[]; endpoints: string[] }>(
+const Recommend = forwardRef<HTMLDivElement, { title: string; keywords: string[]; endpoints: string[] }>(
   ({ title, keywords, endpoints }, ref) => {
     const [datas, setDatas] = useState<MovieItem[]>([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
-    console.log(datas);
 
     // 지금까지 불러온 페이지를 저장하는 배열
     const [pageParams, setPageParams] = useState<number[]>([]);
@@ -123,10 +123,12 @@ const Recommend2 = forwardRef<HTMLDivElement, { title: string; keywords: string[
           ))}
         </div>
 
-        <div ref={observerRef}>Loading...</div>
+        <div ref={observerRef} className="w-full text-white text-2xl text-center  ">
+          {hasMore ? <InfiniteScrollSkeleton /> : ""}
+        </div>
       </div>
     );
   },
 );
 
-export default Recommend2;
+export default Recommend;
