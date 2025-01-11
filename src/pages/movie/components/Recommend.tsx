@@ -1,75 +1,79 @@
-import { forwardRef, useEffect, useState } from "react";
+//  라이브러리 쓰지 않은 무한 스크롤
+
+import { forwardRef, useEffect, useRef, useState } from "react";
 import { axiosInstance } from "../../../api/axios";
 import { Link } from "react-router";
 import { IMAGE_BASE_URL } from "../../../constants/urls";
-import { useInView } from "react-intersection-observer";
 
-const Recommend = forwardRef<HTMLDivElement, { title: string; keywords: string[]; endpoints: string[] }>(
+const Recommend2 = forwardRef<HTMLDivElement, { title: string; keywords: string[]; endpoints: string[] }>(
   ({ title, keywords, endpoints }, ref) => {
     const [datas, setDatas] = useState<MovieItem[]>([]);
     const [page, setPage] = useState(1);
-    const [loading, setLoading] = useState(true);
-    const [isMore, setIsMore] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
+    console.log(datas);
+
+    // 지금까지 불러온 페이지를 저장하는 배열
+    const [pageParams, setPageParams] = useState<number[]>([]);
 
     const [activeIndex, setActiveIndex] = useState(0);
 
-    // react intersection observer 라이브러리
-    const [refs, inView] = useInView({
-      threshold: 0.3,
-    });
+    const observerRef = useRef(null);
 
     const truncateText = (text: string = "", maxLength: number): string =>
       text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
 
     // 키워드 변경시 새로운 API 호출
     const handleChangeKeyword = (index: number) => {
+      // 초기화
+      setPage(1);
+      setDatas([]);
+      setHasMore(true);
+      setPageParams([]);
       setActiveIndex(index);
-      // setCurrentEndpoint(endpoints[index]);
-      setLoading(true);
     };
 
-    // 키워드에 맞는 API 불러오기
-    const getKeywordData = async (currentPage: number) => {
+    // API 호출
+    const fetchDatas = async (page: number) => {
+      if (pageParams.includes(page)) return;
+      setLoading(true);
       try {
-        const response = await axiosInstance.get(`${endpoints[activeIndex]}&page=${currentPage}`);
+        const response = await axiosInstance.get(`${endpoints[activeIndex]}&page=${page}`);
+
         setDatas((prev) => [...prev, ...response.data.results]);
-        if (response.data.total_pages <= currentPage) {
-          setIsMore(false);
-        } else {
-          setIsMore(true); // 더 가져올 수 있는 경우 true 유지
-        }
+        setPageParams((prev) => [...prev, page]);
+        setHasMore(response.data.page < response.data.total_pages);
+        setLoading(false);
       } catch (error) {
         console.error(error);
-      } finally {
         setLoading(false);
       }
     };
 
     useEffect(() => {
-      getKeywordData(1);
-    }, []);
-
-    //  키워드 인덱스 변경시 실행 로직
-    useEffect(() => {
-      setPage(1);
-      getKeywordData(1);
-      setDatas([]);
-    }, [activeIndex]);
-
-    // 페이지 변경시 다음 페이지의 api호출
-    useEffect(() => {
-      getKeywordData(page);
+      fetchDatas(page);
     }, [page]);
 
-    // 무한 스크롤
     useEffect(() => {
-      if (inView && !loading && isMore) {
-        setPage((prev) => prev + 1);
-      }
-    }, [inView, loading, isMore]);
+      // Intersection observer api 사용
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const firstEntry = entries[0];
+          if (firstEntry.isIntersecting && hasMore && !loading) {
+            setPage((prev) => prev + 1);
+          }
+        },
+        { threshold: 0.3 },
+      );
+
+      if (observerRef.current) observer.observe(observerRef.current);
+      return () => {
+        if (observerRef.current) observer.unobserve(observerRef.current);
+      };
+    }, []);
 
     return (
-      <div className="p-10  relative z-[5]">
+      <div className="mt-10  relative z-[5]">
         {/* 카테고리 타이틀 */}
         <h1 className="font-pretendard font-bold text-white text-3xl mb-5 ml-2" ref={ref}>
           {title}
@@ -81,8 +85,8 @@ const Recommend = forwardRef<HTMLDivElement, { title: string; keywords: string[]
               <button
                 onClick={() => handleChangeKeyword(index)}
                 className={`whitespace-nowrap text-white border-[#3c3c3c] px-4 py-2 bg-main-700 rounded-full inline-flex
-                     ${activeIndex === index && " border-[#2c3a58] bg-point-400"}
-                    `}
+                ${activeIndex === index && " border-[#2c3a58] bg-point-500"} 
+                  `}
               >
                 {keyword}
               </button>
@@ -119,11 +123,10 @@ const Recommend = forwardRef<HTMLDivElement, { title: string; keywords: string[]
           ))}
         </div>
 
-        {loading && <div>Loading...</div>}
-        {!loading && <div ref={refs}></div>}
+        <div ref={observerRef}>Loading...</div>
       </div>
     );
   },
 );
 
-export default Recommend;
+export default Recommend2;
