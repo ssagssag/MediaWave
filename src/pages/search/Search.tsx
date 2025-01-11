@@ -30,8 +30,15 @@ export default function Search() {
           return 0;
         });
       setPerson(sortedPerson);
-      setTv(data.filter((item: MediaResult) => item.media_type === "tv" && item.poster_path));
-      setMovie(data.filter((item: MediaResult) => item.media_type === "movie" && item.poster_path));
+      setTv(
+        data
+        .filter((item: MediaResult) => item.media_type === "tv" && item.poster_path)
+        .sort((a:MediaResult, b:MediaResult) => b.popularity - a.popularity));
+
+      setMovie(
+        data
+        .filter((item: MediaResult) => item.media_type === "movie" && item.poster_path)
+        .sort((a:MediaResult, b:MediaResult) => b.popularity - a.popularity));
     } else {
       setPerson([]);
       setTv([]);
