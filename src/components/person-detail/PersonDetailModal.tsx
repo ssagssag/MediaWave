@@ -4,7 +4,7 @@ import PersonDetail from "./components/render/PersonDetail";
 import { usePersonDetailModalStore } from "../../store/PersonDetailModalStore";
 import { axiosInstance } from "../../api/axios";
 
-export default function PersonDetailModal({ personId }: { personId: number | null }) {
+export default function PersonDetailModal({ personId }: { personId: number }) {
   const setIsPersonaDetailModalfalse = usePersonDetailModalStore((state) => state.setIsPersonaDetailModalfalse);
 
   const stModalRef = useRef<HTMLDivElement>(null);
@@ -17,7 +17,7 @@ export default function PersonDetailModal({ personId }: { personId: number | nul
     }
   };
 
-  // 임시 스켈레톤 트리거
+  // 스켈레톤 트리거
   const [skeleton, setSkeleton] = useState(true);
 
   const setPersonDetail = usePersonDetailModalStore((state) => state.setPersonDetail);
@@ -30,6 +30,7 @@ export default function PersonDetailModal({ personId }: { personId: number | nul
   const setTvCast = usePersonDetailModalStore((state) => state.setTvCast);
   const setTvCrew = usePersonDetailModalStore((state) => state.setTvCrew);
 
+  // API
   const getPersonDetail = async () => {
     const res = await axiosInstance.get(`/person/${personId}?language=en-US`);
     setPersonDetail(res.data);
@@ -75,7 +76,7 @@ export default function PersonDetailModal({ personId }: { personId: number | nul
       }}
     >
       <article className="w-full flex justify-center z-50" ref={stModalRef}>
-        <article className="w-full min-h-full max-w-[1136px] px-[50px] py-[20px]" ref={ndModalRef}>
+        <article className="w-full min-h-screen max-w-[1136px] px-[50px] py-10" ref={ndModalRef}>
           <article className="w-full h-full px-[80px] py-[65px] bg-[#1E1E1E] rounded-3xl">
             {skeleton ? <PersonDetailModalSkeleton /> : <PersonDetail />}
           </article>

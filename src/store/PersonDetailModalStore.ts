@@ -5,7 +5,7 @@ interface T_PersonDetailModalStore {
   isPersonaDetailModalOpen: boolean;
   setIsPersonaDetailModaltrue: () => void;
   setIsPersonaDetailModalfalse: () => void;
-  personId: number | null;
+  personId: number;
   setPersonId: (getData: number) => void;
   personDetail: T_personalDetail;
   setPersonDetail: (getData: T_personalDetail) => void;
@@ -31,7 +31,7 @@ export const usePersonDetailModalStore = create<T_PersonDetailModalStore>((set) 
     set(() => ({
       isPersonaDetailModalOpen: false,
     })),
-  personId: null,
+  personId: 0,
   setPersonId: (getData) =>
     set(() => ({
       personId: getData,

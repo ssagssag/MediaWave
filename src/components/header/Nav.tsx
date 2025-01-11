@@ -10,10 +10,10 @@ export default function Nav({ className, activeTab, onTabChange }: NavProps) {
   return (
     <div
       className={`
-      flex items-center justify-center w-[1440px]  ${className} px-11 
+      flex items-center justify-center w-full ${className} 
     `}
     >
-      <div className="flex justify-between w-full max-w-[1440px] ">
+      <div className="flex justify-between w-full ">
         {/* 로고 */}
         <button onClick={() => navigate("/movie")}>
           <img src={logo} alt="홈으로 가기" />

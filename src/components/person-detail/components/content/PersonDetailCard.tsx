@@ -1,32 +1,46 @@
 import { Link } from "react-router";
 import { T_movieCast, T_movieCrew, T_personProfile, T_tvCast, T_tvCrew } from "../../../../types/person";
+import { IMAGE_BASE_URL } from "../../../../constants/urls";
 
 export default function PersonDetailCard({
-  media,
+  movie,
+  tvProgram,
   profile,
 }: {
-  media?: T_movieCast | T_movieCrew | T_tvCast | T_tvCrew;
+  movie?: T_movieCast | T_movieCrew;
+  tvProgram?: T_tvCast | T_tvCrew;
   profile?: T_personProfile;
 }) {
   return (
     <>
-      {media !== undefined && (
-        <Link to={`/movie/${media.id}`}>
-          <article className="rounded-3xl">
+      {movie !== undefined && (
+        <Link to={`/movie/${movie.id}`}>
+          <article className="rounded-xl">
             <img
-              src={`https://image.tmdb.org/t/p/original/${media.poster_path}`}
+              src={`${IMAGE_BASE_URL}/original/${movie.poster_path}`}
               alt="포스터 이미지"
-              className="w-full h-full object-cover rounded-3xl"
+              className="w-full h-full object-cover rounded-xl"
+            />
+          </article>
+        </Link>
+      )}
+      {tvProgram !== undefined && (
+        <Link to={`/tv/${tvProgram.id}`}>
+          <article className="rounded-xl">
+            <img
+              src={`${IMAGE_BASE_URL}/original/${tvProgram.poster_path}`}
+              alt="포스터 이미지"
+              className="w-full h-full object-cover rounded-xl"
             />
           </article>
         </Link>
       )}
       {profile !== undefined && (
-        <article className="rounded-3xl">
+        <article className="rounded-xl">
           <img
-            src={`https://image.tmdb.org/t/p/original/${profile.file_path}`}
+            src={`${IMAGE_BASE_URL}/original/${profile.file_path}`}
             alt="포스터 이미지"
-            className="w-full h-full object-cover rounded-3xl"
+            className="w-full h-full object-cover rounded-xl"
           />
         </article>
       )}

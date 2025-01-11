@@ -11,6 +11,8 @@ export default function Search() {
   const [person, setPerson] = useState([]);
   const [tv, setTv] = useState([]);
   const [movie, setMovie] = useState([]);
+  const [isFocused, setIsFocused] = useState(false);
+  const [focusedPerson, setFocusedPerson] = useState<PersonResult | null>(null);
 
   const handleSearch = async (query: string) => {
     setSearchQuery(query);
@@ -19,7 +21,9 @@ export default function Search() {
       const data = await searchMulti(query);
 
       const sortedPerson = data
-        .filter((item: PersonResult) => item.media_type === "person")
+        .filter((item: PersonResult) => {
+          return item.media_type === "person" && item.known_for.some((media) => media.poster_path);
+        })
         .sort((a: PersonResult, b: PersonResult) => {
           if (a.profile_path && !b.profile_path) return -1;
           if (!a.profile_path && b.profile_path) return 1;
@@ -35,8 +39,18 @@ export default function Search() {
     }
   };
 
+  const handlePersonClick = (personData: PersonResult) => {
+    setIsFocused(true);
+    setFocusedPerson(personData);
+  };
+
+  const handleBackToMedia = () => {
+    setIsFocused(false);
+    setFocusedPerson(null);
+  };
+
   return (
-    <div className="relative flex flex-col items-center w-full h-auto min-h-screen bg-background">
+    <div className="relative flex flex-col items-center w-full h-auto min-h-screen bg-background overflow-x-hidden">
       <header className={`flex flex-col items-center mt-32`}>
         {/* Logo + SearchBar */}
         <Link to={"/"}>
@@ -44,11 +58,32 @@ export default function Search() {
         </Link>
         <SearchBar searchQuery={searchQuery} onSearch={handleSearch} />
       </header>
-      <main className="mt-14 mb-40 flex flex-col items-center gap-20">
-        {/* 인물 카드 렌더링 */}
-        {person.length > 0 && <PersonCard person={person} unique="person-swiper" />}
-        {/* media 카드 렌더링 */}
-        <MediaCard media={[...tv,...movie]} />
+      <main className="mt-8 mb-40 flex flex-col items-center gap-4 w-full overflow-x-hidden">
+        {/* 인물 카드 리스트 */}
+        {person.length > 0 && (
+          <PersonCard
+            person={person}
+            unique="person-swiper"
+            focusedPerson={focusedPerson}
+            onPersonClick={handlePersonClick}
+          />
+        )}
+
+        {/* media 카드 리스트 */}
+        {isFocused && focusedPerson ? (
+          <div className="flex flex-col items-center">
+            {/* 인물 검색 -> 미디어 검색으로 돌아가기 */}
+            <button
+              onClick={handleBackToMedia}
+              className="bg-main-400 text-white px-3 py-1 rounded-full opacity-20 hover:opacity-85 mb-10"
+            >
+              Back to Media
+            </button>
+            <MediaCard media={focusedPerson.known_for} />
+          </div>
+        ) : (
+          <MediaCard media={[...tv, ...movie]} />
+        )}
       </main>
     </div>
   );

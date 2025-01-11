@@ -20,8 +20,5 @@ export default function getPersonImg() {
   ];
 
   const randomIndex = Math.floor(Math.random() * defaultImgs.length);
-  const randomImg = defaultImgs[randomIndex];
-
-  return <img src={randomImg}/>;
-
+  return defaultImgs[randomIndex];
 }

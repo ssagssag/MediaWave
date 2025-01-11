@@ -12,15 +12,15 @@ export default function PersonDetailModalContent() {
 
   return (
     <article className="flex flex-col gap-[50px]">
-      <PersonDetailSwiperContent profiles={personProfiles} title={"프로필"} />
+      {personProfiles.length > 0 && <PersonDetailSwiperContent profiles={personProfiles} title={"프로필"} />}
 
-      <PersonDetailSwiperContent content={movieCast} title={"출연 영화"} />
+      {movieCast.length > 0 && <PersonDetailSwiperContent movies={movieCast} title={"출연 영화"} />}
 
-      <PersonDetailSwiperContent content={movieCrew} title={"연출 영화"} />
+      {movieCrew.length > 0 && <PersonDetailSwiperContent movies={movieCrew} title={"연출 영화"} />}
 
-      <PersonDetailSwiperContent content={tvCast} title={"출연 TV 프로그램"} />
+      {tvCast.length > 0 && <PersonDetailSwiperContent tv_programs={tvCast} title={"출연 TV 프로그램"} />}
 
-      <PersonDetailSwiperContent content={tvCrew} title={"연출 TV 프로그램"} />
+      {tvCrew.length > 0 && <PersonDetailSwiperContent tv_programs={tvCrew} title={"연출 TV 프로그램"} />}
     </article>
   );
 }
