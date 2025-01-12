@@ -1,4 +1,4 @@
-interface MovieItem extends MediaItem {
+export interface MovieItem extends MediaItem {
   adult: boolean;
   original_title: string;
   release_date: string;

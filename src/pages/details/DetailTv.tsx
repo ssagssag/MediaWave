@@ -3,58 +3,40 @@ import { useParams } from "react-router";
 import { getTvDetails, getTvVideos, getTvCast, getSimilarTv } from "../../api/axios";
 import DetailButtons from "./components/DetailButtons";
 import TrailerSwiper from "./components/TrailerSwiper";
-import CastList from "./components/CastList";
+import CastList from "./components/CastSection";
 import SimilarMovies from "./components/SimilarMovies";
-import { CastMember } from "./components/CastList";
+import { CastMember, TvItem, TrailerVideo } from "../../types/tv";
 import DetailComment from "./components/DetailComment";
 import createComment from "../../assets/detailPage/paper-plane.svg";
 import DetailTvSkeleton from "./components/DetailTvSkeleton";
 
-type Genre = {
-  id: number;
-  name: string;
-};
-
-type TvItem = {
-  id: number;
-  name: string;
-  overview: string;
-  poster_path: string;
-  genres?: Genre[];
-};
-
 export default function DetailTv() {
   const { id } = useParams();
   const [tvDetails, setTvDetails] = useState<TvItem | null>(null);
-  const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [similarTvShows, setSimilarTvShows] = useState<TvItem[]>([]);
+  const [videos, setVideos] = useState<TrailerVideo[]>([]);
   const [cast, setCast] = useState<CastMember[]>([]);
-  const [similarMovies, setSimilarMovies] = useState<MovieItem[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       if (id) {
         try {
           setLoading(true);
-          const [details, movieVideos, castData, similar] = await Promise.all([
+          const [details, tvVideos, castData, similar] = await Promise.all([
             getTvDetails(parseInt(id)),
             getTvVideos(parseInt(id)),
             getTvCast(parseInt(id)),
             getSimilarTv(parseInt(id)),
           ]);
 
-          setTvDetails({
-            id: details.id,
-            name: details.name,
-            overview: details.overview,
-            poster_path: details.poster_path,
-          });
-          setVideos(movieVideos);
+          setTvDetails(details);
+          setVideos(tvVideos);
           setCast(castData);
-          const filteredSimilarMovies = similar.filter((movie: any) => movie.poster_path);
-          setSimilarMovies(filteredSimilarMovies);
+          const filteredSimilarShows = similar.filter((show: TvItem) => show.poster_path);
+          setSimilarTvShows(filteredSimilarShows);
         } catch (error) {
-          console.error(error);
+          console.error("TV 시리즈 데이터를 불러오는데 실패했습니다:", error);
         } finally {
           setLoading(false);
         }
@@ -109,11 +91,11 @@ export default function DetailTv() {
             <figure className="max-[1519px]:p-8 relative z-10 w-full max-w-[1520px] mx-auto">
               <div className="flex justify-end mb-8 max-w-[1520px] mx-auto">
                 <DetailButtons
-                  movieId={tvDetails?.id ?? 0}
-                  onFavoriteClick={() => console.log("Favorite")}
-                  onReviewClick={() => console.log("Review")}
-                  onCommentClick={() => console.log("Comment")}
-                  onShareClick={() => console.log("Share")}
+                  tvId={tvDetails?.id}
+                  onFavoriteClick={() => console.log("즐겨찾기")}
+                  onReviewClick={() => console.log("리뷰")}
+                  onCommentClick={() => console.log("댓글")}
+                  onShareClick={() => console.log("공유")}
                 />
               </div>
               {videos.length > 0 && (
@@ -122,8 +104,8 @@ export default function DetailTv() {
                 </div>
               )}
             </figure>
-            {cast.length > 0 && <CastList cast={cast} hasVideos={videos.length > 0} />}
-            {similarMovies.length > 0 && <SimilarMovies movies={similarMovies} />}
+            {cast?.length > 0 && <CastList cast={cast} hasVideos={videos?.length > 0} />}
+            {similarTvShows?.length > 0 && <SimilarMovies movies={similarTvShows} />}
 
             {/* 댓글 작성 */}
             <form className="w-full max-w-[1520px] mx-auto max-[1519px]:p-8">

@@ -1,44 +1,44 @@
 import { Link } from "react-router-dom";
-import BaseSwiper from "../../../components/swiper/BaseSwiper";
-
-interface MovieItem {
-  id: number;
-  title: string;
-  poster_path: string;
-  release_date: string;
-}
+import { MovieItem } from "../../../types/movie";
+import { TvItem } from "../../../types/tv";
+import SimilarMoviesSwiper from "./SimilarMoviesSwiper";
 
 interface SimilarMoviesProps {
-  movies: MovieItem[];
+  movies: (TvItem | MovieItem)[];
 }
 
 export default function SimilarMovies({ movies }: SimilarMoviesProps) {
-  // 각 영화 카드 렌더링 함수
-  const renderMovie = (movie: MovieItem) => (
-    <Link 
-      to={`/movie/${movie.id}`} 
-      className="block p-2 cursor-pointer"
-    >
-      <div className="relative overflow-hidden rounded-3xl aspect-[2/3]">
-        <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title}
-          className="object-cover w-full h-full transition-transform duration-300 hover:scale-110"
-        />
-      </div>
-      <h3 className="mt-2 font-semibold text-white truncate text-info-lg">
-        {movie.title}
-      </h3>
-      <p className="text-info-base text-white/70">
-        {new Date(movie.release_date).getFullYear()}
-      </p>
-    </Link>
-  );
+  const renderMovie = (movie: MovieItem | TvItem) => {
+    const title = 'title' in movie ? movie.title : movie.name;
+    const releaseDate = 'release_date' in movie ? movie.release_date : movie.first_air_date;
+    const link = 'title' in movie ? `/movie/${movie.id}` : `/tv/${movie.id}`;
+    
+    return (
+      <Link
+        to={link}
+        className="block p-2 cursor-pointer"
+      >
+        <div className="relative overflow-hidden rounded-3xl aspect-[2/3]">
+          <img
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={title}
+            className="object-cover w-full h-full transition-transform duration-300"
+          />
+        </div>
+        <h3 className="mt-2 font-semibold text-white truncate text-info-lg">
+          {title}
+        </h3>
+        <p className="text-info-base text-white/70">
+          {new Date(releaseDate).getFullYear()}
+        </p>
+      </Link>
+    );
+  };
 
   return (
     <div className="w-full max-w-[1520px] mx-auto max-[1519px]:p-8 py-12">
-      <h2 className="mb-6 text-2xl font-bold text-white">비슷한 영화 추천</h2>
-      <BaseSwiper
+      <h2 className="mb-6 text-2xl font-bold text-white">You May Also Like</h2>
+      <SimilarMoviesSwiper
         data={movies}
         renderItem={renderMovie}
         autoplay={true}
