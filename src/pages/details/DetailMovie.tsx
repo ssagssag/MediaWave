@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { ClipLoader } from "react-spinners";
 import { getMovieCast, getMovieDetails, getMovieVideos, getSimilarMovies } from "../../api/axios";
 import DetailButtons from "./components/DetailButtons";
 import TrailerSwiper from "./components/TrailerSwiper";
@@ -9,6 +8,7 @@ import SimilarMovies from "./components/SimilarMovies";
 import { CastMember } from "./components/CastList";
 import DetailComment from "./components/DetailComment";
 import createComment from "../../assets/detailPage/paper-plane.svg";
+import DetailMovieSkeleton from "./components/DetailMovieSkeleton";
 
 export default function DetailMovie() {
   const { id } = useParams();
@@ -47,11 +47,7 @@ export default function DetailMovie() {
   }, [id]);
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <ClipLoader color="#ffffff" size={50} />
-      </div>
-    );
+    return <DetailMovieSkeleton />;
   }
 
   return (
@@ -76,7 +72,7 @@ export default function DetailMovie() {
         {/* 컨텐츠 영역 */}
         <section className="absolute top-0 left-0 z-20 w-full h-full pt-80 ">
           {/* 상단 컨텐츠 */}
-          <div aria-label="contents" className="max-w-[1520px] mx-auto">
+          <div aria-label="contents" className="max-w-[1520px] mx-auto max-[1519px]:p-8">
             <ul className="flex gap-2 mb-4 max-w-[1520px]">
               {movieDetails?.genres?.map((genre) => (
                 <li key={genre.id} className="px-4 py-1 mb-1 text-sm rounded-full text-main-400 bg-white/70">
