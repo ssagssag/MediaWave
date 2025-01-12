@@ -239,6 +239,52 @@ export const getTVGenres = async () => {
   }
 };
 
+// TV - 상세 정보
+export const getTvDetails = async (id: number): Promise<TvItem> => {
+  try {
+    const response = await axiosInstance.get(`/tv/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error API details:", error);
+    throw error;
+  }
+};
+
+// TV - 비디오
+export const getTvVideos = async (tvId: number) => {
+  try {
+    const response = await axiosInstance.get(`/tv/${tvId}/videos`);
+    return response.data.results.filter(
+      (video: any) => video.site === "YouTube" && (video.type === "Trailer" || video.type === "Teaser")
+    );
+  } catch (error) {
+    console.error("Error fetching tv videos:", error);
+    throw error;
+  }
+};
+
+// TV - 출연진
+export const getTvCast = async (tvId: number) => {
+  try {
+    const response = await axiosInstance.get(`/tv/${tvId}/credits`);
+    return response.data.cast;
+  } catch (error) {
+    console.error("Failed to fetch cast:", error);
+    return [];
+  }
+};
+
+// TV - 비슷한 시리즈
+export const getSimilarTv = async (tvId: number) => {
+  try {
+    const response = await axiosInstance.get(`/tv/${tvId}/similar`);
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching similar tv series:", error);
+    throw error;
+  }
+};
+
 
 {
   /* search */
