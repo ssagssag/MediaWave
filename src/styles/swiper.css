@@ -7,18 +7,15 @@
   position: absolute;
   top: 50%;
   z-index: 5;
-  width: 50px;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 30px;
+  height: 30px;
+  color: #fff !important;
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.3s ease;
-  transform: translateY(-30%);
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 }
 
 /* 호버 시 버튼 보이기 */
@@ -29,19 +26,17 @@
 }
 
 /* 왼쪽 버튼 */
-.swiper-button-prev {
+/* .swiper-button-prev {
   left: -50px;
-}
+} */
 
 /* 오른쪽 버튼 */
-.swiper-button-next {
+/* .swiper-button-next {
   right: -50px;
-}
+} */
 
 /* 슬라이더 순서가  왼쪽 또는 오른쪽 끝일 때 버튼 opacity :0 */
-.swiper-button-prev.swiper-button-disabled {
-  opacity: 0;
-}
+.swiper-button-prev.swiper-button-disabled,
 .swiper-button-next.swiper-button-disabled {
-  opacity: 0;
+  opacity: 0 !important;
 }

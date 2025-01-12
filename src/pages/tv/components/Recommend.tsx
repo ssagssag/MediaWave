@@ -8,10 +8,12 @@ import InfiniteScrollSkeleton from "../../../components/person-detail/components
 
 const Recommend = forwardRef<HTMLDivElement, { title: string; keywords: string[]; endpoints: string[] }>(
   ({ title, keywords, endpoints }, ref) => {
-    const [datas, setDatas] = useState<MovieItem[]>([]);
+    const [datas, setDatas] = useState<TvItem[]>([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
+
+    console.log(datas);
 
     // 지금까지 불러온 페이지를 저장하는 배열
     const [pageParams, setPageParams] = useState<number[]>([]);
@@ -98,7 +100,7 @@ const Recommend = forwardRef<HTMLDivElement, { title: string; keywords: string[]
         <div className="grid grid-cols-8 gap-4 mt-7">
           {datas.map((data, index) => (
             <div key={`${data.id} - ${index}`}>
-              <Link to={`/movie/${data.id}`}>
+              <Link to={`/tv/${data.id}`}>
                 <div className="w-full h-full bg-white/10 rounded-2xl overflow-hidden relative shadow-custom-heavy group">
                   {/* 그라데이션 오버레이 */}
                   <div className="w-full h-[50%] bottom-0 absolute bg-gradient-to-t from-[#141414] to-transparent opacity-0 group-hover:opacity-100" />

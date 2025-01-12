@@ -52,7 +52,6 @@ export default {
         "input-base": ["1rem", { lineHeight: "auto", fontWeight: "600" }], // 16px
 
         clamp: "clamp(30px, 4vw, 50px)",
-
       },
       boxShadow: {
         default: "0px 8px 18px 0px rgba(168, 178, 198, 0.45)",
@@ -92,7 +91,7 @@ export default {
       animation: {
         shimmer: "shimmer 1.5s infinite linear",
         slide: "slide 2s linear infinite",
-        movieFlip: 'movieFlip 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) both',
+        movieFlip: "movieFlip 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) both",
       },
       keyframes: {
         shimmer: {
@@ -104,21 +103,23 @@ export default {
           "100%": { transform: "translateY(-100%)" },
         },
         movieFlip: {
-          '0%': { 
-            transform: 'translateY(0) rotateX(0)',
-            transformOrigin: '50% 0'
+          "0%": {
+            transform: "translateY(0) rotateX(0)",
+            transformOrigin: "50% 0",
           },
-          '100%': { 
-            transform: 'translateY(-100%) rotateX(180deg)',
-            transformOrigin: '50% 100%'
-          }
-        }
+          "100%": {
+            transform: "translateY(-100%) rotateX(180deg)",
+            transformOrigin: "50% 100%",
+          },
+        },
       },
       backgroundImage: {
         "gradient-custom": "linear-gradient(to right, #D9D9D9 0%, #EDEEF1 50%, #D9D9D9 100%)",
+        "gradient-custom2": "linear-gradient(to right, #595959 0%, #707070 50%, #595959 100%)",
       },
       backgroundSize: {
         custom: "300% 100%",
+        custom2: "150% 100%",
       },
       // 스켈레톤
     },

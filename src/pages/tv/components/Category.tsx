@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import PosterCard from "../../../components/poster/PosterCard";
 
-const Category = forwardRef<HTMLDivElement, { title: string; category: string; data: MovieItem[] }>(
+const Category = forwardRef<HTMLDivElement, { title: string; category: string; data: TvItem[] }>(
   ({ title, category, data }, ref) => {
     return (
       <div ref={ref} className=" relative z-[5] mt-10 ">

@@ -7,7 +7,9 @@
   .skeleton {
     @apply animate-shimmer bg-gradient-custom bg-custom;
   }
-
+  .skeleton2 {
+    @apply animate-shimmer bg-gradient-custom2 bg-custom2;
+  }
   /* flex 정렬 class명 */
   .item-middle {
     @apply flex items-center justify-center;
