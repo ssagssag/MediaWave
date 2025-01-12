@@ -1,11 +1,12 @@
 import { useState } from 'react';
 
 interface DetailButtonsProps {
-  movieId: number;
-  onFavoriteClick?: () => void;
-  onReviewClick?: () => void;
-  onCommentClick?: () => void;
-  onShareClick?: () => void;
+  tvId?: number;
+  movieId?: number;
+  onFavoriteClick: () => void;
+  onReviewClick: () => void;
+  onCommentClick: () => void;
+  onShareClick: () => void;
 }
 
 interface ButtonConfig {
@@ -35,7 +36,6 @@ export default function DetailButtons({
     const movieUrl = `${window.location.origin}/movie/${movieId}`;
     
     // navigator.share()를 지원하는지 확인
-    // Web Share API는 주로 모바일 환경에서 지원됩니다
     if (navigator.share) {
       try {
         // Share API 호출

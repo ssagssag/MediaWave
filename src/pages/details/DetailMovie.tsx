@@ -3,12 +3,13 @@ import { useParams } from "react-router";
 import { getMovieCast, getMovieDetails, getMovieVideos, getSimilarMovies } from "../../api/axios";
 import DetailButtons from "./components/DetailButtons";
 import TrailerSwiper from "./components/TrailerSwiper";
-import CastList from "./components/CastList";
+import CastList from "./components/CastSection";
 import SimilarMovies from "./components/SimilarMovies";
-import { CastMember } from "./components/CastList";
+import { CastMember } from "./components/CastSection";
 import DetailComment from "./components/DetailComment";
 import createComment from "../../assets/detailPage/paper-plane.svg";
 import DetailMovieSkeleton from "./components/DetailMovieSkeleton";
+import { MovieItem } from "../../types/movie";
 
 export default function DetailMovie() {
   const { id } = useParams();

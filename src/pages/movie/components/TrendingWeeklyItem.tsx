@@ -33,7 +33,7 @@ export default function TrendingWeeklyItem({ movie }: RecommendProps) {
 
   return (
     <Link to={`/movie/${movie.id}`}>
-      <div className="w-full h-full  relative overflow-hidden ">
+      <div className="relative w-full h-full overflow-hidden ">
         {/* 그라데이션 오버레이 */}
 
         <div
@@ -41,15 +41,14 @@ export default function TrendingWeeklyItem({ movie }: RecommendProps) {
             background: `linear-gradient(to top, rgba(30, 30, 30, 1) 10%, transparent),
                        linear-gradient(to right, rgba(30, 30, 30, 0.7) 25%, transparent)`,
           }}
-          className="absolute top-0 left-0 w-full h-full   z-10
-       "
+          className="absolute top-0 left-0 z-10 w-full h-full "
         />
         {/* 영화 정보 */}
-        <div className="absolute z-20 top-[200px] text-[#ffffff] font-noto ">
+        <div className="absolute z-20 top-[200px] text-[#ffffff] ">
           {/* 영화 장르 */}
-          <div className="flex flex-row items-center gap-2 ml-10 text-base font-semibold">
-            <p className="bg-black/60 px-4 py-1 rounded-full">{firstGenre}</p>
-            <p className="bg-black/60 px-4 py-1 rounded-full">{secondGenre}</p>
+          <div className="flex flex-row items-center gap-2 ml-10 text-base text-banner-title">
+            <p className="px-4 py-1 rounded-full bg-black/60">{firstGenre}</p>
+            <p className="px-4 py-1 rounded-full bg-black/60">{secondGenre}</p>
           </div>
 
           {/* 영화 타이툴 */}
@@ -65,15 +64,15 @@ export default function TrendingWeeklyItem({ movie }: RecommendProps) {
             {movie.overview.length < 240 ? movie.overview : `${movie.overview.slice(0, 240)}...`}
           </p>
 
-          <div className="relative flex flex-row items-center mt-4 font-pretendard font-semiBold ml-10">
+          <div className="relative flex flex-row items-center mt-4 ml-10 font-pretendard font-semiBold">
             <img className="absolute ml-1.5 w- h-5" src={playIcon} alt="재생하기" />
-            <p className="px-4 py-1 bg-white text-black rounded-full text-base ">ㅤWatch </p>
+            <p className="px-4 py-1 text-base text-black bg-white rounded-full ">ㅤWatch </p>
           </div>
         </div>
 
         {/* 영화 스틸이미지 */}
         <img
-          className="w-full h-full object-cover"
+          className="object-cover w-full h-full"
           src={`${IMAGE_BASE_URL}/original/${backdropPath}`}
           alt={movie.title}
         />
