@@ -1,10 +1,11 @@
 import { Link } from "react-router";
+import { searchMulti } from "../../api/axios";
+import { useMemo, useState } from "react";
+import { debounce } from "lodash";
 import logo from "../../assets/Logo.svg";
 import SearchBar from "./components/SearchBar";
 import MediaCard from "./components/MediaCard";
 import PersonCard from "./components/PersonCard";
-import { useState } from "react";
-import { searchMulti } from "../../api/axios";
 
 export default function Search() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -17,43 +18,49 @@ export default function Search() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const handleSearch = async (query: string, page = 1) => {
+  const debouncedSearch = useMemo(
+    () =>
+      debounce(async (query: string, page = 1) => {
+        console.log("Search:", query);
+        if (query.length > 2) {
+          const data = await searchMulti(query, page);
+
+          const sortedPerson = data.results
+            .filter((item: PersonResult) => {
+              return item.media_type === "person" && item.known_for.some((media) => media.poster_path);
+            })
+            .sort((a: PersonResult, b: PersonResult) => {
+              if (a.profile_path && !b.profile_path) return -1;
+              if (!a.profile_path && b.profile_path) return 1;
+              return 0;
+            });
+          setPerson(sortedPerson);
+          setTv(
+            data.results
+              .filter((item: MediaResult) => item.media_type === "tv" && item.poster_path)
+              .sort((a: MediaResult, b: MediaResult) => b.popularity - a.popularity)
+          );
+          setMovie(
+            data.results
+              .filter((item: MediaResult) => item.media_type === "movie" && item.poster_path)
+              .sort((a: MediaResult, b: MediaResult) => b.popularity - a.popularity)
+          );
+          setCurrentPage(page);
+          setTotalPages(data.total_pages || 1);
+        } else {
+          setPerson([]);
+          setTv([]);
+          setMovie([]);
+          setCurrentPage(1);
+          setTotalPages(1);
+        }
+      }, 300),
+    []
+  );
+
+  const handleSearch = (query: string) => {
     setSearchQuery(query);
-
-    if (query.length > 2) {
-      const data = await searchMulti(query, page);
-
-      const sortedPerson = data.results
-        .filter((item: PersonResult) => {
-          return item.media_type === "person" && item.known_for.some((media) => media.poster_path);
-        })
-        .sort((a: PersonResult, b: PersonResult) => {
-          if (a.profile_path && !b.profile_path) return -1;
-          if (!a.profile_path && b.profile_path) return 1;
-          return 0;
-        });
-      setPerson(sortedPerson);
-      setTv(
-        data.results
-          .filter((item: MediaResult) => item.media_type === "tv" && item.poster_path)
-          .sort((a: MediaResult, b: MediaResult) => b.popularity - a.popularity),
-      );
-
-      setMovie(
-        data.results
-          .filter((item: MediaResult) => item.media_type === "movie" && item.poster_path)
-          .sort((a: MediaResult, b: MediaResult) => b.popularity - a.popularity),
-      );
-
-      setCurrentPage(page);
-      setTotalPages(data.total_pages || 1);
-    } else {
-      setPerson([]);
-      setTv([]);
-      setMovie([]);
-      setCurrentPage(1);
-      setTotalPages(1);
-    }
+    debouncedSearch(query); 
   };
 
   const handlePersonClick = (personData: PersonResult) => {
@@ -68,7 +75,7 @@ export default function Search() {
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
-      handleSearch(searchQuery, page);
+      debouncedSearch(searchQuery, page);
     }
   };
 
