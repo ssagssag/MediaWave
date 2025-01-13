@@ -3,6 +3,7 @@ import { getGenreMap, getMovieStills } from "../../../api/axios";
 import { Link } from "react-router";
 import playIcon from "../../../assets/Play_icon.svg";
 import { IMAGE_BASE_URL } from "../../../constants/urls";
+import { RecommendProps } from "../../../types/movie";
 
 export default function TrendingWeeklyItem({ movie }: RecommendProps) {
   const [backdropPath, setBackdropPath] = useState("");

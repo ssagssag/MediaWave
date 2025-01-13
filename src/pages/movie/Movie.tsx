@@ -5,6 +5,7 @@ import ControllerButton from "../../components/controller-button/ControllerButto
 import Recommend from "./components/Recommend";
 import MovieSkeleton from "../../components/person-detail/components/skeleton/MovieSkeleton";
 import { axiosInstance } from "../../api/axios";
+import { MovieItem } from "../../types/movie";
 import TrendingWeekly from "./components/TrendingWeekly";
 
 export default function Movie() {

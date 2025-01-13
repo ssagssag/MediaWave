@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
 import PosterCard from "../../../components/poster/PosterCard";
+import { TvItem } from "../../../types/tv";
 
 const Category = forwardRef<HTMLDivElement, { title: string; category: string; data: TvItem[] }>(
   ({ title, category, data }, ref) => {

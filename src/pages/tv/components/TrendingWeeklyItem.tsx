@@ -3,6 +3,7 @@ import { getGenreMap, getTvStills } from "../../../api/axios";
 import { Link } from "react-router";
 import playIcon from "../../../assets/Play_icon.svg";
 import { IMAGE_BASE_URL } from "../../../constants/urls";
+import { TvItem } from "../../../types/tv";
 
 export default function TrendingWeeklyItem({ data }: { data: TvItem }) {
   const [backdropPath, setBackdropPath] = useState("");

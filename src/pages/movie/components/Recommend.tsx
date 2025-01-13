@@ -5,8 +5,9 @@ import { axiosInstance } from "../../../api/axios";
 import { Link } from "react-router";
 import { IMAGE_BASE_URL } from "../../../constants/urls";
 import InfiniteScrollSkeleton from "../../../components/person-detail/components/skeleton/InfiniteScrollSkeleton";
+import { MovieItem } from "../../../types/movie";
 
-const Recommend = forwardRef<HTMLDivElement, { title: string; keywords: string[]; endpoints: string[] }>(
+const Recommend2 = forwardRef<HTMLDivElement, { title: string; keywords: string[]; endpoints: string[] }>(
   ({ title, keywords, endpoints }, ref) => {
     const [datas, setDatas] = useState<MovieItem[]>([]);
     const [page, setPage] = useState(1);
@@ -131,4 +132,4 @@ const Recommend = forwardRef<HTMLDivElement, { title: string; keywords: string[]
   },
 );
 
-export default Recommend;
+export default Recommend2;
