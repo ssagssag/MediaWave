@@ -6,6 +6,7 @@ import GenreButtonList from "./components/top/GenreButtonList";
 import ContentButtonList from "./components/top/ContentButtonList";
 import GenreContent from "./components/content/GenreContent";
 import GenreButtonListSkeleton from "./components/skeleton/GenreButtonListSkeleton";
+import { T_genreMovie, T_genreTv } from "../../types/genre";
 
 export default function Genre() {
   const isContentsLoading = useGenreStore((state) => state.isContentsLoading);
@@ -43,15 +44,22 @@ export default function Genre() {
     const res = await axiosInstance(
       `discover/movie?language=en-US&page=${1}&with_genres=${[]}&sort_by=popularity.desc`,
     );
-    setMovieList(res.data.results);
-    console.log("장르별 영화", res.data.results);
+    const filteringResult = res.data.results.filter((e: T_genreMovie) => {
+      if (e.poster_path) return true;
+      return false;
+    });
+    setMovieList(filteringResult);
     setIsContentsLoading(false);
   };
 
   const getTvWithGenre = async () => {
     setIsContentsLoading(true);
     const res = await axiosInstance(`discover/tv?&language=en-USpage=${1}&with_genres=${[]}&sort_by=popularity.desc`);
-    setTvList(res.data.results);
+    const filteringResult = res.data.results.filter((e: T_genreTv) => {
+      if (e.poster_path) return true;
+      return false;
+    });
+    setTvList(filteringResult);
     console.log("장르별 tv", res.data.results);
     setIsContentsLoading(false);
   };
