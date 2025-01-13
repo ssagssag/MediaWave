@@ -68,13 +68,15 @@ export default function Movie() {
       const responses = await Promise.all(
         categories.map(async (category) => {
           const response = await axiosInstance.get(category.endpoint);
-          return { title: category.title, category: category.category, datas: response.data.results };
+          const filteredData = response.data.results.filter((data: MovieItem) => data.poster_path !== null);
+          return { title: category.title, category: category.category, datas: filteredData };
         }),
       );
       setData(responses);
       // Trending Weekly 데이터 호출
       const trendingResponse = await axiosInstance.get("/trending/movie/week");
-      setTrendingData(trendingResponse.data.results);
+      const filteredData = trendingResponse.data.results.filter((data: MovieItem) => data.poster_path !== null);
+      setTrendingData(filteredData);
       setSkeleton(false);
     } catch (error) {
       console.log("Fetch Error", error);

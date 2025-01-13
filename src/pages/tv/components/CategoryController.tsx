@@ -16,7 +16,7 @@ export default function CategoryController({ scrollToCategory }: CategoryControl
 
   const categoryLists = [
     { name: "Popular", key: "popular" },
-    { name: "Upcoming", key: "upcoming" },
+    { name: "Airing Today", key: "aring_today" },
     { name: "Top Rated", key: "top_rated" },
     { name: "Trending", key: "daily_trending" },
     { name: "Now Playing", key: "now_playing" },

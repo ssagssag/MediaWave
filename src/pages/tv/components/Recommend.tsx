@@ -14,8 +14,6 @@ const Recommend = forwardRef<HTMLDivElement, { title: string; keywords: string[]
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
 
-    console.log(datas);
-
     // 지금까지 불러온 페이지를 저장하는 배열
     const [pageParams, setPageParams] = useState<number[]>([]);
 
@@ -42,8 +40,8 @@ const Recommend = forwardRef<HTMLDivElement, { title: string; keywords: string[]
       setLoading(true);
       try {
         const response = await axiosInstance.get(`${endpoints[activeIndex]}&page=${page}`);
-
-        setDatas((prev) => [...prev, ...response.data.results]);
+        const filteredData = response.data.results.filter((data: TvItem) => data.poster_path !== null);
+        setDatas((prev) => [...prev, ...filteredData]);
         setPageParams((prev) => [...prev, page]);
         setHasMore(response.data.page < response.data.total_pages);
         setLoading(false);

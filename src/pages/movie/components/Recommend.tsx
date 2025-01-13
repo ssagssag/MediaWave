@@ -7,7 +7,7 @@ import { IMAGE_BASE_URL } from "../../../constants/urls";
 import InfiniteScrollSkeleton from "../../../components/person-detail/components/skeleton/InfiniteScrollSkeleton";
 import { MovieItem } from "../../../types/movie";
 
-const Recommend2 = forwardRef<HTMLDivElement, { title: string; keywords: string[]; endpoints: string[] }>(
+const Recommend = forwardRef<HTMLDivElement, { title: string; keywords: string[]; endpoints: string[] }>(
   ({ title, keywords, endpoints }, ref) => {
     const [datas, setDatas] = useState<MovieItem[]>([]);
     const [page, setPage] = useState(1);
@@ -40,8 +40,8 @@ const Recommend2 = forwardRef<HTMLDivElement, { title: string; keywords: string[
       setLoading(true);
       try {
         const response = await axiosInstance.get(`${endpoints[activeIndex]}&page=${page}`);
-
-        setDatas((prev) => [...prev, ...response.data.results]);
+        const filteredData = response.data.results.filter((data: MovieItem) => data.poster_path !== null);
+        setDatas((prev) => [...prev, ...filteredData]);
         setPageParams((prev) => [...prev, page]);
         setHasMore(response.data.page < response.data.total_pages);
         setLoading(false);
@@ -132,4 +132,4 @@ const Recommend2 = forwardRef<HTMLDivElement, { title: string; keywords: string[
   },
 );
 
-export default Recommend2;
+export default Recommend;

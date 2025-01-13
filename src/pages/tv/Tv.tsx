@@ -6,6 +6,7 @@ import TrendingWeekly from "./components/TrendingWeekly";
 import Category from "./components/Category";
 import CategoryController from "./components/CategoryController";
 import Recommend from "./components/Recommend";
+import { TvItem } from "../../types/tv";
 
 export default function Tv() {
   const [skeleton, setSkeleton] = useState(true); // 전체 로딩 상태
@@ -38,7 +39,6 @@ export default function Tv() {
     { title: "On th Air", endpoint: "/tv/on_the_air", category: "on_the_air" },
     { title: "Top Rated", endpoint: "/tv/top_rated", category: "top_rated" },
     { title: "Trending", endpoint: "/trending/tv/day", category: "daily_trending" },
-    { title: "Popular", endpoint: "/tv/popular", category: "popular" },
     { title: "My Favorites", endpoint: "/tv/popular", category: "my_favorites" },
     { title: "My Lists", endpoint: "/tv/popular", category: "my_lists" },
   ];
@@ -67,13 +67,15 @@ export default function Tv() {
       const responses = await Promise.all(
         categories.map(async (category) => {
           const response = await axiosInstance.get(category.endpoint);
-          return { title: category.title, category: category.category, datas: response.data.results };
+          const filteredData = response.data.results.filter((data: TvItem) => data.poster_path !== null);
+          return { title: category.title, category: category.category, datas: filteredData };
         }),
       );
       setData(responses);
       // Trending Weekly 데이터 호출
       const trendingResponse = await axiosInstance.get("/trending/tv/week");
-      setTrendingData(trendingResponse.data.results);
+      const filteredData = trendingResponse.data.results.filter((data: TvItem) => data.poster_path !== null);
+      setTrendingData(filteredData);
       setSkeleton(false);
     } catch (error) {
       console.log("Fetch Error", error);
