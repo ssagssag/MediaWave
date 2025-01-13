@@ -288,19 +288,23 @@ export const getSimilarTv = async (tvId: number) => {
 }
 
 // 영화 검색
-export const searchMulti = async (query: string) => {
-  if (!query) return [];
+export const searchMulti = async (query: string, page=1) => {
+  if (!query) return { results:[], total_pages: 0};
   try {
     const response = await axiosInstance.get(`/search/multi`, {
       params: {
         query,
         include_adult: 'false', 
-        language: 'en-US'
+        language: 'en-US',
+        page,
       },
     });
-    return response.data.results;
+    return {
+      results: response.data.results,
+      total_pages: response.data.total_pages,
+    };
   } catch (error) {
     console.error("Error fetching search results:", error);
-    return [];
+    return { results:[], total_pages: 0};
   }
 };

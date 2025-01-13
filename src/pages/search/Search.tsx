@@ -14,13 +14,16 @@ export default function Search() {
   const [isFocused, setIsFocused] = useState(false);
   const [focusedPerson, setFocusedPerson] = useState<PersonResult | null>(null);
 
-  const handleSearch = async (query: string) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const handleSearch = async (query: string, page = 1) => {
     setSearchQuery(query);
 
     if (query.length > 2) {
-      const data = await searchMulti(query);
+      const data = await searchMulti(query, page);
 
-      const sortedPerson = data
+      const sortedPerson = data.results
         .filter((item: PersonResult) => {
           return item.media_type === "person" && item.known_for.some((media) => media.poster_path);
         })
@@ -31,18 +34,25 @@ export default function Search() {
         });
       setPerson(sortedPerson);
       setTv(
-        data
-        .filter((item: MediaResult) => item.media_type === "tv" && item.poster_path)
-        .sort((a:MediaResult, b:MediaResult) => b.popularity - a.popularity));
+        data.results
+          .filter((item: MediaResult) => item.media_type === "tv" && item.poster_path)
+          .sort((a: MediaResult, b: MediaResult) => b.popularity - a.popularity),
+      );
 
       setMovie(
-        data
-        .filter((item: MediaResult) => item.media_type === "movie" && item.poster_path)
-        .sort((a:MediaResult, b:MediaResult) => b.popularity - a.popularity));
+        data.results
+          .filter((item: MediaResult) => item.media_type === "movie" && item.poster_path)
+          .sort((a: MediaResult, b: MediaResult) => b.popularity - a.popularity),
+      );
+
+      setCurrentPage(page);
+      setTotalPages(data.total_pages || 1);
     } else {
       setPerson([]);
       setTv([]);
       setMovie([]);
+      setCurrentPage(1);
+      setTotalPages(1);
     }
   };
 
@@ -54,6 +64,20 @@ export default function Search() {
   const handleBackToMedia = () => {
     setIsFocused(false);
     setFocusedPerson(null);
+  };
+
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      handleSearch(searchQuery, page);
+    }
+  };
+
+  const getPageNumbers = () => {
+    const maxButtons = 10;
+    const startPage = Math.floor((currentPage - 1) / maxButtons) * maxButtons + 1;
+    const endPage = Math.min(startPage + maxButtons - 1, totalPages);
+
+    return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
   };
 
   return (
@@ -89,7 +113,40 @@ export default function Search() {
             <MediaCard media={focusedPerson.known_for} />
           </div>
         ) : (
-          <MediaCard media={[...tv, ...movie]} />
+          <>
+            <MediaCard media={[...tv, ...movie]} />
+            {/* 페이지네이션 UI */}
+            {totalPages > 1 && (
+              <div className="flex gap-2 mt-16 font-sans font-medium">
+                <button
+                  disabled={currentPage === 1}
+                  onClick={() => handlePageChange(Math.max(1, currentPage - 10))}
+                  className="px-4 py-2 bg-main-600 text-white rounded disabled:opacity-50"
+                >
+                  prev
+                </button>
+                {getPageNumbers().map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => handlePageChange(page)}
+                    className={`px-4 py-2 rounded ${
+                      currentPage === page ? "bg-main-600 text-white" : "bg-main-400 text-gray-200"
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
+
+                <button
+                  disabled={currentPage === totalPages}
+                  onClick={() => handlePageChange(Math.min(totalPages, currentPage + 10))}
+                  className="px-4 py-2 bg-point-500 text-white rounded disabled:opacity-50"
+                >
+                  Next
+                </button>
+              </div>
+            )}
+          </>
         )}
       </main>
     </div>
