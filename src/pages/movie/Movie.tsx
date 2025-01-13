@@ -36,12 +36,10 @@ export default function Movie() {
   ];
   const categories = [
     { title: "Popular", endpoint: "/movie/popular", category: "popular" },
-    { title: "Upcoming", endpoint: "/movie/upcoming", category: "upcoming" },
     { title: "Top Rated", endpoint: "/movie/top_rated", category: "top_rated" },
-    { title: "Trending", endpoint: "/trending/movie/day", category: "daily_trending" },
+    { title: "Upcoming", endpoint: "/movie/upcoming", category: "upcoming" },
     { title: "Now Playing", endpoint: "/movie/now_playing", category: "now_playing" },
-    { title: "My Favorites", endpoint: "/movie/now_playing", category: "my_favorites" },
-    { title: "My Lists", endpoint: "/movie/now_playing", category: "my_lists" },
+    { title: "Trending", endpoint: "/trending/movie/day", category: "daily_trending" },
   ];
 
   const controllerRef = useRef<HTMLDivElement | null>(null);

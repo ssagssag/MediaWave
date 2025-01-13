@@ -35,12 +35,11 @@ export default function Tv() {
     "/discover/tv?sort_by=vote_count.desc&with_keywords=161257",
   ];
   const categories = [
+    { title: "Popular", endpoint: "/tv/popular", category: "popular" },
+    { title: "Top Rated", endpoint: "/tv/top_rated", category: "top_rated" },
     { title: "Airing Today", endpoint: "/tv/airing_today", category: "airing_today" },
     { title: "On th Air", endpoint: "/tv/on_the_air", category: "on_the_air" },
-    { title: "Top Rated", endpoint: "/tv/top_rated", category: "top_rated" },
     { title: "Trending", endpoint: "/trending/tv/day", category: "daily_trending" },
-    { title: "My Favorites", endpoint: "/tv/popular", category: "my_favorites" },
-    { title: "My Lists", endpoint: "/tv/popular", category: "my_lists" },
   ];
 
   const controllerRef = useRef<HTMLDivElement | null>(null);

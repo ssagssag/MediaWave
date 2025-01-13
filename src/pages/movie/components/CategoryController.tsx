@@ -12,16 +12,14 @@ interface CategoryControllerProps {
 }
 
 export default function CategoryController({ scrollToCategory }: CategoryControllerProps) {
-  const svgs = [popular, upcoming, toprated, trending, nowplaying, myfavorites, mylists, recommend];
+  const svgs = [popular, upcoming, toprated, trending, nowplaying, recommend];
 
   const categoryLists = [
     { name: "Popular", key: "popular" },
-    { name: "Upcoming", key: "upcoming" },
     { name: "Top Rated", key: "top_rated" },
-    { name: "Trending", key: "daily_trending" },
+    { name: "Upcoming", key: "upcoming" },
     { name: "Now Playing", key: "now_playing" },
-    { name: "My Favorites", key: "my_favorites" },
-    { name: "My Lists", key: "my_lists" },
+    { name: "Trending", key: "daily_trending" },
     { name: "Recommend", key: "recommend" },
   ];
 
