@@ -1,4 +1,6 @@
 import axios from "axios";
+import { TvItem } from "../types/tv";
+import { MovieItem } from "../types/movie";
 
 export const axiosInstance = axios.create({
   baseURL: "https://api.themoviedb.org/3",
@@ -173,13 +175,10 @@ export const getTvAiringToday = async () => {
 // Tv - Popular
 export const getTVPopular = async () => {
   try {
-    const {
-      data: { results },
-    } = await axiosInstance.get("/tv/popular");
-    const sortedPopularity = results.sort((a: TvItem, b: TvItem) => b.popularity - a.popularity);
-    return sortedPopularity;
+    const { data: { results } } = await axiosInstance.get("/tv/popular");
+    return results.sort((a: TvItem, b: TvItem) => b.popularity - a.popularity);
   } catch (error) {
-    console.error("Error fetching TvPopular:", error);
+    console.error("인기 TV 시리즈를 가져오는데 실패했습니다:", error);
     throw error;
   }
 };
@@ -187,13 +186,10 @@ export const getTVPopular = async () => {
 // Tv - Top Rated
 export const getTvTopRated = async () => {
   try {
-    const {
-      data: { results },
-    } = await axiosInstance.get("/tv/top_rated");
-    const sortedVoteAvg = results.sort((a: TvItem, b: TvItem) => b.vote_average - a.vote_average);
-    return sortedVoteAvg;
+    const { data: { results } } = await axiosInstance.get("/tv/top_rated");
+    return results.sort((a: TvItem, b: TvItem) => b.vote_average - a.vote_average);
   } catch (error) {
-    console.error("Error fetching Top Rated:", error);
+    console.error("높은 평점의 TV 시리즈를 가져오는데 실패했습니다:", error);
     throw error;
   }
 };
@@ -239,6 +235,53 @@ export const getTVGenres = async () => {
   }
 };
 
+// TV 시리즈 상세 정보
+export const getTvDetails = async (id: number): Promise<TvItem> => {
+  try {
+    const response = await axiosInstance.get(`/tv/${id}`, {
+      params: { language: "ko-KR" },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("TV 시리즈 상세 정보를 가져오는데 실패했습니다:", error);
+    throw error;
+  }
+};
+
+// TV 시리즈 비디오
+export const getTvVideos = async (tvId: number) => {
+  try {
+    const response = await axiosInstance.get(`/tv/${tvId}/videos`);
+    return response.data.results.filter(
+      (video: any) => video.site === "YouTube" && (video.type === "Trailer" || video.type === "Teaser"),
+    );
+  } catch (error) {
+    console.error("TV 시리즈 비디오를 가져오는데 실패했습니다:", error);
+    throw error;
+  }
+};
+
+// TV 시리즈 캐스트 정보
+export const getTvCast = async (tvId: number) => {
+  try {
+    const response = await axiosInstance.get(`/tv/${tvId}/credits`);
+    return response.data.cast;
+  } catch (error) {
+    console.error("TV 시리즈 캐스트 정보를 가져오는데 실패했습니다:", error);
+    throw error;
+  }
+};
+
+// 비슷한 TV 시리즈
+export const getSimilarTv = async (tvId: number) => {
+  try {
+    const response = await axiosInstance.get(`/tv/${tvId}/similar`);
+    return response.data.results;
+  } catch (error) {
+    console.error("비슷한 TV 시리즈를 가져오는데 실패했습니다:", error);
+    throw error;
+  }
+};
 
 {
   /* search */
