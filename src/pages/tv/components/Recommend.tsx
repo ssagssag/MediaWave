@@ -5,6 +5,7 @@ import { axiosInstance } from "../../../api/axios";
 import { Link } from "react-router";
 import { IMAGE_BASE_URL } from "../../../constants/urls";
 import InfiniteScrollSkeleton from "../../../components/person-detail/components/skeleton/InfiniteScrollSkeleton";
+import { TvItem } from "../../../types/tv";
 
 const Recommend = forwardRef<HTMLDivElement, { title: string; keywords: string[]; endpoints: string[] }>(
   ({ title, keywords, endpoints }, ref) => {
@@ -110,7 +111,7 @@ const Recommend = forwardRef<HTMLDivElement, { title: string; keywords: string[]
                     <div className="bg-[#000000]/50 rounded-3xl py-1 px-2 mb-2">
                       <p className="text-white font-noto text-xs">↗ {data.popularity}</p>
                     </div>
-                    <p className="text-xl font-semibold text-white">{truncateText(data.title, 17)}</p>
+                    <p className="text-xl font-semibold text-white">{truncateText(data.name, 17)}</p>
                     <p className="text-white font-noto text-[10px] mt-2 line-clamp-2 opacity-80">{data.overview}</p>
                   </div>
 
