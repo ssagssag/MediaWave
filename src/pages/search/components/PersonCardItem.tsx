@@ -4,7 +4,7 @@ import getPersonImg from "../../../utils/getPersonImg";
 
 export default function PersonCardItem({ item, onClick, focusedPerson }: PersonCardItemProps) {
   const [animationClass, setAnimationClass] = useState("opacity-0");
-  const [personImg, setPersonImg] = useState<string | null>(null); 
+  const [personImg, setPersonImg] = useState<string | undefined>(""); 
 
   const nameParts = item.name.length > 10 ? item.name.split(" ") : [item.name];
   const firstName = nameParts[0];
@@ -36,9 +36,8 @@ export default function PersonCardItem({ item, onClick, focusedPerson }: PersonC
             src={`${IMAGE_BASE_URL}/t/p/w185/${item.profile_path}`}
           />
         ) : (
-          personImg
-        )}
-      </div>
+          <img src={personImg} alt={item.name} /> )}
+        </div>
       {/* 인물 프로필 정보 */}
       <div className="flex flex-col items-center leading-tight mt-3">
         <p className="font-sans text-center text-white">{firstName}</p>
