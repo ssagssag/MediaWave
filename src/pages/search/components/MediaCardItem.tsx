@@ -8,6 +8,16 @@ export default function MediaCardItem({ item }: MediaCardItemProps) {
   const isLongTitle = title.length > 8;
   const nav = useNavigate();
 
+  const getOverivew = () => {
+    if(item.overview) {
+      return item.overview.length < 300 
+       ? item.overview 
+       : item.overview.slice(0, 220) + "...";
+     } else {
+       return "This movie’s plot is being kept under wraps, but trust us - it’s a must-watch!";
+     }
+  };
+
   return (
     <div
     onClick={() => 
@@ -39,9 +49,7 @@ export default function MediaCardItem({ item }: MediaCardItemProps) {
 
         <div className="overflow-hidden">
           <p className="text-sm text-white/70 line-clamp-4 ">
-            {item.overview.length < 300 
-              ? item.overview 
-              : item.overview.slice(0, 220) + "..."}
+            {getOverivew()}
           </p>
         </div>
 
