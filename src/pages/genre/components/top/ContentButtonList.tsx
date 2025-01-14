@@ -5,7 +5,7 @@ export default function ContentButtonList() {
   const setContentType = useGenreStore((state) => state.setContentType);
 
   return (
-    <article className="flex gap-12 mb-6">
+    <article className="flex gap-12 mb-6 relative after:contents-[*] after:w-full after:h-[1px] after:bg-main-400 after:absolute after:bottom-[2px] after:z-[-1]">
       <button
         className="text-info-base w-[6.25rem] pb-2 text-white"
         style={

@@ -31,12 +31,6 @@ export default function Genre() {
   const showingMovieGenreId = useGenreStore((state) => state.showingMovieGenreId);
   const showingTvGenreId = useGenreStore((state) => state.showingTvGenreId);
 
-  // const moviePage = useGenreStore((state) => state.moviePage);
-  // const tvPage = useGenreStore((state) => state.tvPage);
-
-  // const plusMoviePage = useGenreStore((state) => state.plusMoviePage);
-  // const plusTvPage = useGenreStore((state) => state.plusTvPage);
-
   const page = useGenreStore((state) => state.page);
   const plusPage = useGenreStore((state) => state.plusPage);
 
@@ -172,7 +166,6 @@ export default function Genre() {
       <ContentButtonList />
       {/* 장르 버튼*/}
       <article className="flex gap-4 flex-wrap mb-[4rem]">
-        {/* 일반 버튼 */}
         {isGenreLoading ? (
           <GenreButtonListSkeleton />
         ) : (

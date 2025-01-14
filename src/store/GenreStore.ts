@@ -22,8 +22,6 @@ interface T_genreStore {
   setShowingTvGenreId: (getData: number[]) => void;
   page: number;
   plusPage: () => void;
-  // tvPage: number;
-  // plusTvPage: () => void;
 }
 
 export const useGenreStore = create<T_genreStore>((set) => ({
@@ -50,9 +48,4 @@ export const useGenreStore = create<T_genreStore>((set) => ({
     set((state) => ({
       page: state.page + 1,
     })),
-  // tvPage: 1,
-  // plusTvPage: () =>
-  //   set((state) => ({
-  //     moviePage: state.tvPage + 1,
-  //   })),
 }));
