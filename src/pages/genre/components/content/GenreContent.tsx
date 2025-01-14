@@ -52,7 +52,6 @@ export default function GenreContent({ content }: { content: "movie" | "tv" }) {
     if (firstRender) {
       setFirstRender(false);
     } else {
-      console.log(showingMovieGenreId);
       contentType === "movie" && getMovieWithGenre();
       contentType === "tv" && getTvWithGenre();
     }
@@ -60,7 +59,7 @@ export default function GenreContent({ content }: { content: "movie" | "tv" }) {
   return (
     <>
       {content === "movie" && (
-        <section className="flex flex-wrap gap-9">
+        <>
           {movieList.map((movie, idx) => {
             return (
               <article className="w-[calc(100%/6-30px)] h-[20.125rem] rounded-xl" key={idx}>
@@ -74,10 +73,10 @@ export default function GenreContent({ content }: { content: "movie" | "tv" }) {
               </article>
             );
           })}
-        </section>
+        </>
       )}
       {content === "tv" && (
-        <section className="flex flex-wrap gap-9">
+        <>
           {tvList.map((tv, idx) => {
             return (
               <article className="w-[calc(100%/6-30px)] h-[20.125rem] rounded-xl" key={idx}>
@@ -91,7 +90,7 @@ export default function GenreContent({ content }: { content: "movie" | "tv" }) {
               </article>
             );
           })}
-        </section>
+        </>
       )}
     </>
   );

@@ -20,6 +20,10 @@ interface T_genreStore {
   setShowingMovieGenreId: (getData: number[]) => void;
   showingTvGenreId: number[];
   setShowingTvGenreId: (getData: number[]) => void;
+  page: number;
+  plusPage: () => void;
+  // tvPage: number;
+  // plusTvPage: () => void;
 }
 
 export const useGenreStore = create<T_genreStore>((set) => ({
@@ -41,4 +45,14 @@ export const useGenreStore = create<T_genreStore>((set) => ({
   setShowingMovieGenreId: (getData) => set(() => ({ showingMovieGenreId: getData })),
   showingTvGenreId: [],
   setShowingTvGenreId: (getData) => set(() => ({ showingTvGenreId: getData })),
+  page: 1,
+  plusPage: () =>
+    set((state) => ({
+      page: state.page + 1,
+    })),
+  // tvPage: 1,
+  // plusTvPage: () =>
+  //   set((state) => ({
+  //     moviePage: state.tvPage + 1,
+  //   })),
 }));

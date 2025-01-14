@@ -26,6 +26,7 @@ export default function ContentButtonList() {
         }
         onClick={() => {
           setContentType("tv");
+          console.log(contentType);
         }}
       >
         TV series
