@@ -1,13 +1,14 @@
 import { cup_cake, pin, star } from "../../../../assets/PersonDetailModal/svgs";
 import { IMAGE_BASE_URL } from "../../../../constants/urls";
 import { T_personalDetail } from "../../../../types/person";
+import getPersonImg from "../../../../utils/getPersonImg";
 import InlinePersonInfo from "./InlinePersonInfo";
 import { usePersonImageStore } from "../../../../store/PersonImageStore";
 
 export default function PersonDetailModalTop({ personDetail }: { personDetail: T_personalDetail }) {
   const getRandomImage = usePersonImageStore((state) => state.getRandomImage);
   const randomProfile = getRandomImage(personDetail.id);
-  
+
   return (
     <article className="flex gap-[35px] items-center">
       <article className="w-[124px] h-[124px] rounded-full">

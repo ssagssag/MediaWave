@@ -27,6 +27,7 @@ export default function Router() {
         <Route path="/animation" element={<Animation />} />
         <Route path="/genre" element={<Genre />} />
         <Route path="/tv/:id" element={<DetailTv />} />
+        {/* <Route path="/details/movie/:id" element={<DetailMovie />} /> */}
         <Route path="/movie/:id" element={<DetailMovie />} />
       </Route>
 
