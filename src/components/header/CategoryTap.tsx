@@ -1,7 +1,9 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function CategoryTap({ activeTab, onTabChange }: CategoryTapProps) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const tabs = [
     { name: "Movie", path: "/movie" },
@@ -9,6 +11,13 @@ export default function CategoryTap({ activeTab, onTabChange }: CategoryTapProps
     { name: "Animation", path: "/animation" },
     { name: "Genre", path: "/genre" },
   ];
+
+  useEffect(() => {
+    const currentTab = tabs.findIndex(tab => location.pathname.includes(tab.path));
+    if (currentTab !== -1 && currentTab !== activeTab) {
+      onTabChange(currentTab);
+    }
+  }, [location.pathname]);
 
   const handleTabClick = (index: number, path: string) => {
     onTabChange(index);

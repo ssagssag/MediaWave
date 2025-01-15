@@ -3,7 +3,7 @@ export default function ControllerButton({ toggleController }: { toggleControlle
     <>
       <button
         onClick={toggleController}
-        className="fixed bottom-24 right-8 h-[60px] w-[60px] z-[5] rounded-full bg-white/60 shadow-lg transition-all hover:bg-white group"
+        className="fixed max-[1720px]:right-8 bottom-40 right-32 h-[60px] w-[60px] z-[5] rounded-full bg-white/60 shadow-lg transition-all hover:bg-white group"
         aria-label="카테고리 컨트롤러 보여주기"
       >
         <svg
