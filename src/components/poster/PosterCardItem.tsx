@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { IMAGE_BASE_URL } from "../../constants/urls";
 
 export default function PosterCardItem({ item }: { item: MediaItem }) {
@@ -7,6 +7,11 @@ export default function PosterCardItem({ item }: { item: MediaItem }) {
   const maxTitleLength = 17;
 
   const media_type = item.name ? "tv" : "movie";
+  const navigate = useNavigate();
+
+  const handleMovetoDetails = (movieId: number) => {
+    navigate(`/${media_type}/${movieId}`);
+  };
 
   const truncateText = (text: string, maxLength: number): string => {
     if (text.length > maxLength) {
@@ -20,7 +25,7 @@ export default function PosterCardItem({ item }: { item: MediaItem }) {
   }, [item.id]);
 
   return (
-    <Link to={`/${media_type}/${item.id}`} className="block w-full h-full">
+    <div className="cursor-pointer w-full h-full" onClick={() => handleMovetoDetails(item.id)}>
       <div className="w-full h-full bg-white/10 rounded-2xl overflow-hidden relative shadow-custom-heavy group">
         {/* 그라데이션 오버레이 */}
         <div className="w-full h-[50%] bottom-0 absolute bg-gradient-to-t from-[#141414] to-transparent opacity-0 group-hover:opacity-100" />
@@ -41,6 +46,6 @@ export default function PosterCardItem({ item }: { item: MediaItem }) {
           alt={item.title || item.name}
         />
       </div>
-    </Link>
+    </div>
   );
 }

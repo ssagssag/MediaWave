@@ -6,6 +6,7 @@ import { Link } from "react-router";
 import { IMAGE_BASE_URL } from "../../../constants/urls";
 import InfiniteScrollSkeleton from "../../../components/person-detail/components/skeleton/InfiniteScrollSkeleton";
 import { MovieItem } from "../../../types/movie";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 const Recommend = forwardRef<HTMLDivElement, { title: string; keywords: string[]; endpoints: string[] }>(
   ({ title, keywords, endpoints }, ref) => {

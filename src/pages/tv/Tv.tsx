@@ -73,7 +73,7 @@ export default function Tv() {
       setData(responses);
       // Trending Weekly 데이터 호출
       const trendingResponse = await axiosInstance.get("/trending/tv/week");
-      const filteredData = trendingResponse.data.results.filter((data: TvItem) => data.poster_path !== null);
+      const filteredData = trendingResponse.data.results.filter((data: TvItem) => data.backdrop_path !== null);
       setTrendingData(filteredData);
       setSkeleton(false);
     } catch (error) {
