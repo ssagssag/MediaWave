@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 import { getGenreMap, getMovieStills } from "../../../api/axios";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import playIcon from "../../../assets/Play_icon.svg";
 import { IMAGE_BASE_URL } from "../../../constants/urls";
+import { RecommendProps } from "../../../types/movie";
 
 export default function TrendingWeeklyItem({ movie }: RecommendProps) {
   const [backdropPath, setBackdropPath] = useState("");
   const [firstGenre, setFirstGenre] = useState<string>("");
   const [secondGenre, setSecondGenre] = useState<string>("");
+  const navigate = useNavigate();
+
+  const handleMovetoDetails = (movieId: number) => {
+    navigate(`/movie/${movieId}`);
+  };
 
   useEffect(() => {
     const fetchMovieStills = async () => {
@@ -32,7 +38,7 @@ export default function TrendingWeeklyItem({ movie }: RecommendProps) {
   }, [movie.id, movie.genre_ids]);
 
   return (
-    <Link to={`/movie/${movie.id}`}>
+    <div onClick={() => handleMovetoDetails(movie.id)} className="cursor-pointer">
       <div className="relative w-full h-full overflow-hidden ">
         {/* 그라데이션 오버레이 */}
 
@@ -44,7 +50,7 @@ export default function TrendingWeeklyItem({ movie }: RecommendProps) {
           className="absolute top-0 left-0 z-10 w-full h-full "
         />
         {/* 영화 정보 */}
-        <div className="absolute z-20 top-[200px] text-[#ffffff] ">
+        <div className="z-20 absolute top-[200px] left-[50px] text-white ">
           {/* 영화 장르 */}
           <div className="flex flex-row items-center gap-2 ml-10 text-base text-banner-title">
             <p className="px-4 py-1 rounded-full bg-black/60">{firstGenre}</p>
@@ -77,6 +83,6 @@ export default function TrendingWeeklyItem({ movie }: RecommendProps) {
           alt={movie.title}
         />
       </div>
-    </Link>
+    </div>
   );
 }

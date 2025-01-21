@@ -1,5 +1,7 @@
 import PosterCardItem from "./PosterCardItem";
 import BaseSwiper from "../swiper/BaseSwiper";
+import { MovieItem } from "../../types/movie";
+import { TvItem } from "../../types/tv";
 
 interface PosterCardProps<T extends MovieItem | TvItem> {
   cards: T[];

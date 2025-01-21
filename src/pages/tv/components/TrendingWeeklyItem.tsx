@@ -3,6 +3,7 @@ import { getGenreMap, getTvStills } from "../../../api/axios";
 import { Link } from "react-router";
 import playIcon from "../../../assets/Play_icon.svg";
 import { IMAGE_BASE_URL } from "../../../constants/urls";
+import { TvItem } from "../../../types/tv";
 
 export default function TrendingWeeklyItem({ data }: { data: TvItem }) {
   const [backdropPath, setBackdropPath] = useState("");
@@ -45,7 +46,7 @@ export default function TrendingWeeklyItem({ data }: { data: TvItem }) {
        "
         />
         {/* tv 정보 */}
-        <div className="absolute z-20 top-[200px] text-[#ffffff] font-noto ">
+        <div className="absolute z-20 top-[200px] left-[50px] text-[#ffffff] font-noto ">
           {/* tv 장르 */}
           <div className="flex flex-row items-center gap-2 ml-10 text-base font-semibold">
             <p className="bg-black/60 px-4 py-1 rounded-full">{firstGenre}</p>

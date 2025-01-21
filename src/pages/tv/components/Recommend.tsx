@@ -5,6 +5,7 @@ import { axiosInstance } from "../../../api/axios";
 import { Link } from "react-router";
 import { IMAGE_BASE_URL } from "../../../constants/urls";
 import InfiniteScrollSkeleton from "../../../components/person-detail/components/skeleton/InfiniteScrollSkeleton";
+import { TvItem } from "../../../types/tv";
 
 const Recommend = forwardRef<HTMLDivElement, { title: string; keywords: string[]; endpoints: string[] }>(
   ({ title, keywords, endpoints }, ref) => {
@@ -12,8 +13,6 @@ const Recommend = forwardRef<HTMLDivElement, { title: string; keywords: string[]
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
-
-    console.log(datas);
 
     // 지금까지 불러온 페이지를 저장하는 배열
     const [pageParams, setPageParams] = useState<number[]>([]);
@@ -41,8 +40,8 @@ const Recommend = forwardRef<HTMLDivElement, { title: string; keywords: string[]
       setLoading(true);
       try {
         const response = await axiosInstance.get(`${endpoints[activeIndex]}&page=${page}`);
-
-        setDatas((prev) => [...prev, ...response.data.results]);
+        const filteredData = response.data.results.filter((data: TvItem) => data.poster_path !== null);
+        setDatas((prev) => [...prev, ...filteredData]);
         setPageParams((prev) => [...prev, page]);
         setHasMore(response.data.page < response.data.total_pages);
         setLoading(false);
@@ -110,7 +109,7 @@ const Recommend = forwardRef<HTMLDivElement, { title: string; keywords: string[]
                     <div className="bg-[#000000]/50 rounded-3xl py-1 px-2 mb-2">
                       <p className="text-white font-noto text-xs">↗ {data.popularity}</p>
                     </div>
-                    <p className="text-xl font-semibold text-white">{truncateText(data.title, 17)}</p>
+                    <p className="text-xl font-semibold text-white">{truncateText(data.name, 17)}</p>
                     <p className="text-white font-noto text-[10px] mt-2 line-clamp-2 opacity-80">{data.overview}</p>
                   </div>
 

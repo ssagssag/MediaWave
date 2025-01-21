@@ -2,6 +2,7 @@ import "swiper/swiper-bundle.css";
 
 import BaseSwiper from "../../../components/swiper/BaseSwiper";
 import TrendingWeeklyItem from "./TrendingWeeklyItem";
+import { TvItem } from "../../../types/tv";
 
 export default function TrendingWeekly({ data }: { data: TvItem[] }) {
   return (
