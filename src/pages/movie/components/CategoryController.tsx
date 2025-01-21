@@ -13,7 +13,7 @@ interface CategoryControllerProps {
 }
 
 export default function CategoryController({ scrollToCategory }: CategoryControllerProps) {
-  const svgs = [popular, upcoming, toprated, trending, nowplaying, lastYear, shortRuntime, recommend];
+  const svgs = [popular, toprated, upcoming, nowplaying, trending, lastYear, shortRuntime, recommend];
 
   const categoryLists = [
     { name: "Popular", key: "popular" },
